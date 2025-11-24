@@ -91,18 +91,12 @@ public class LoginController implements Initializable {
 
     @FXML
     private void onOpenRegister(ActionEvent event) throws IOException {
-        // TODO: File RegisterKaryawan.fxml belum tersedia
-        JOptionPane.showMessageDialog(null,
-                "Fitur Register belum tersedia. File RegisterKaryawan.fxml tidak ditemukan.");
-        
-        /* Uncomment ketika file sudah ada:
-        URL registerUrl = new File("src/main/java/View/RegisterKaryawan.fxml")
+        URL registerUrl = new File("src/main/java/View/Register.fxml")
                 .toURI().toURL();
         Parent root = FXMLLoader.load(registerUrl);
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource())
                 .getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        */
     }
 }
