@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="550.0" prefWidth="700.0" style="-fx-background-color: linear-gradient(to bottom right, #2C3E50, #4CA1AF);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RegisterController">
+
+    <children>
+        <VBox alignment="CENTER" maxWidth="400.0" prefHeight="500.0" prefWidth="400.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 35;">
+
+            <effect>
+                <DropShadow color="#00000040" radius="15.0" spread="0.1" />
+            </effect>
+
+            <children>
+                <Label text="BUAT AKUN BARU" textFill="#2c3e50">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+
+                <Label text="Lengkapi data diri karyawan di bawah ini" textFill="#7f8c8d">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </Label>
+
+                <VBox alignment="CENTER_LEFT" spacing="5.0">
+                    <children>
+                        <Label text="Email Karyawan" textFill="#34495e">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="tfEmail" prefHeight="40.0" promptText="contoh@salon.com" style="-fx-background-radius: 5; -fx-border-color: #bdc3c7; -fx-border-radius: 5; -fx-background-color: white;" />
+                    </children>
+                </VBox>
+
+                <VBox alignment="CENTER_LEFT" spacing="5.0">
+                    <children>
+                        <Label text="Password" textFill="#34495e">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <PasswordField fx:id="tfPassword" prefHeight="40.0" promptText="Minimal 6 karakter" style="-fx-background-radius: 5; -fx-border-color: #bdc3c7; -fx-border-radius: 5; -fx-background-color: white;" />
+                    </children>
+                </VBox>
+
+                <VBox alignment="CENTER_LEFT" spacing="5.0">
+                    <children>
+                        <Label text="Konfirmasi Password" textFill="#34495e">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <PasswordField fx:id="tfConfirmPassword" prefHeight="40.0" promptText="Ulangi password di atas" style="-fx-background-radius: 5; -fx-border-color: #bdc3c7; -fx-border-radius: 5; -fx-background-color: white;" />
+                    </children>
+                </VBox>
+
+                <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#onRegister" prefHeight="45.0" prefWidth="340.0" style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;" text="DAFTAR SEKARANG">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </Button>
+
+                <Hyperlink fx:id="linkBackToLogin" onAction="#onBackToLogin" text="Sudah punya akun? Kembali ke Login" textFill="#2980b9" />
+
+                <Label text="*Pastikan email valid untuk keperluan sistem" textFill="#95a5a6">
+                    <font>
+                        <Font size="11.0" />
+                    </font>
+                </Label>
+
+            </children>
+        </VBox>
+    </children>
+</StackPane>
