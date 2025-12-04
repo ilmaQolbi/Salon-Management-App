@@ -1,0 +1,51 @@
+<component name="libraryTable">
+  <library name="src">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$USER_HOME$/javafx/javafx2.editor/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.editor/test/unit/data" />
+      <root url="file://$USER_HOME$/javafx/javafx2.editor/test/unit/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.kit/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.platform/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.project/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.project/test/qa-functional/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.project/test/unit/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/AdvancedMedia/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/AudioVisualizer3D/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/BrickBreaker/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/ChangeListener/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/ChartAdvancedArea/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/ChartAdvancedBar/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/ChartAdvancedPie/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/ChartAdvancedScatterLive/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/ChartAdvancedScatter/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/ChartAdvancedStockLine/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/ChartAudioArea/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/ChartAudioBar/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/ChartLine/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/ColorPicker/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/ColorfulCircles/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/CreateAdvancedStage/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/Cube3D/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/CubeSystem3D/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/DigitalClock/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/FXML-LoginDemo/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/HTMLEditorApp/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/KeyStrokeMotion/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/MouseEvents/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/PaginationDemo/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/StopWatch/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/SwingInterop/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/TimelineEvents/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/TimelineInterpolator/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/TransitionPath/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/TransitionRotate/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/WebViewBrowser/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.samples/src" />
+      <root url="file://$USER_HOME$/javafx/javafx2.scenebuilder/src" />
+      <root url="file://$USER_HOME$/javafx/maven.htmlui/src" />
+      <root url="file://$USER_HOME$/javafx/maven.htmlui/test/unit/src" />
+    </SOURCES>
+  </library>
+</component>

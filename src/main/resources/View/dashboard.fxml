@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.DashboardController">
+
+    <children>
+
+        <!-- Title -->
+        <Label text="Dashboard Salon"
+               layoutX="320" layoutY="20"
+               style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+        <!-- TAB PANE -->
+        <TabPane fx:id="tabPaneRole"
+                 layoutX="20" layoutY="70"
+                 prefWidth="760" prefHeight="500">
+
+            <!-- TAB ADMIN -->
+            <Tab text="Admin" closable="false">
+                <AnchorPane>
+                    <children>
+                        <VBox layoutX="40" layoutY="20" spacing="10">
+                            <children>
+                                <Button text="Kelola Karyawan" prefWidth="200" onAction="#onKelolaKaryawan"/>
+                                <Button text="Kelola Layanan" prefWidth="200" onAction="#onKelolaLayanan"/>
+                                <Button text="Pengaturan Akun" prefWidth="200" onAction="#onPengaturanAkun"/>
+                                <Button text="Melihat Jadwal" prefWidth="200" onAction="#onMelihatJadwalAdmin"/>
+                                <Button text="Lihat Daftar Pelanggan" prefWidth="200" onAction="#onLihatDaftarPelangganAdmin"/>
+                                <Button text="Lihat Petugas" prefWidth="200" onAction="#onLihatPetugasAdmin"/>
+                                <Button text="Backup Data" prefWidth="200" onAction="#onBackupData"/>
+                                <Button text="Lapor Kendala" prefWidth="200" onAction="#onLaporKendalaAdmin"/>
+                                <Button text="Logout" prefWidth="200" onAction="#onLogoutAdmin"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </Tab>
+
+            <!-- TAB KASIR -->
+            <Tab text="Kasir" closable="false">
+                <AnchorPane>
+                    <children>
+                        <VBox layoutX="40" layoutY="20" spacing="10">
+                            <children>
+                                <Button text="Layanan Transaksi" prefWidth="200" onAction="#onLayananTransaksi"/>
+                                <Button text="Riwayat Transaksi" prefWidth="200" onAction="#onRiwayatTransaksi"/>
+                                <Button text="Cetak Struk" prefWidth="200" onAction="#onCetakStruk"/>
+                                <Button text="Kelola Antrian" prefWidth="200" onAction="#onKelolaAntrianKasir"/>
+                                <Button text="Melihat Jadwal" prefWidth="200" onAction="#onMelihatJadwalKasir"/>
+                                <Button text="Lihat Daftar Pelanggan" prefWidth="200" onAction="#onLihatDaftarPelangganKasir"/>
+                                <Button text="Lihat Petugas" prefWidth="200" onAction="#onLihatPetugasKasir"/>
+                                <Button text="Lapor Kendala" prefWidth="200" onAction="#onLaporKendalaKasir"/>
+                                <Button text="Logout" prefWidth="200" onAction="#onLogoutKasir"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </Tab>
+
+            <!-- TAB KARYAWAN -->
+            <Tab text="Karyawan" closable="false">
+                <AnchorPane>
+                    <children>
+                        <VBox layoutX="40" layoutY="20" spacing="10">
+                            <children>
+                                <Button text="Lihat Jadwal" prefWidth="200" onAction="#onLihatJadwalKaryawan"/>
+                                <Button text="Lihat Daftar Pelanggan" prefWidth="200" onAction="#onLihatDaftarPelangganKaryawan"/>
+                                <Button text="Lihat Petugas" prefWidth="200" onAction="#onLihatPetugasKaryawan"/>
+                                <Button text="Lihat Komisi" prefWidth="200" onAction="#onLihatKomisi"/>
+                                <Button text="Lapor Kendala" prefWidth="200" onAction="#onLaporKendalaKaryawan"/>
+                                <Button text="Logout" prefWidth="200" onAction="#onLogoutKaryawan"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </Tab>
+
+        </TabPane>
+
+    </children>
+</AnchorPane>

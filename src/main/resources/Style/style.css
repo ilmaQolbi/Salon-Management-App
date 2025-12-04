@@ -1,0 +1,159 @@
+/* Global Reset & Font */
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+.main-background {
+    -fx-background-color: #f8fafc; /* slate-50 */
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+    -fx-background-color: rgba(255, 255, 255, 0.85); /* White with opacity */
+    -fx-background-radius: 24px;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-radius: 24px;
+    -fx-border-width: 1px;
+    /* DropShadow handled in FXML via <effect>, but can be reinforced here if needed */
+}
+
+/* Header Icon Container with Gradient */
+.icon-container {
+    -fx-background-color: linear-gradient(to bottom right, #14b8a6, #059669); /* teal-500 to emerald-600 */
+    -fx-background-radius: 16px;
+    -fx-effect: dropshadow(three-pass-box, rgba(20, 184, 166, 0.3), 10, 0, 0, 4);
+    -fx-rotate: 3deg;
+}
+
+/* Hover effect for icon (simulate rotate-6) */
+.icon-container:hover {
+    -fx-rotate: 6deg;
+}
+
+/* Typography Styling */
+.title-text {
+    -fx-font-size: 24px;
+    -fx-font-weight: 700; /* Bold */
+    -fx-text-fill: #1e293b; /* slate-800 */
+}
+
+.subtitle-text {
+    -fx-font-size: 14px;
+    -fx-font-weight: 500; /* Medium */
+    -fx-text-fill: #64748b; /* slate-500 */
+}
+
+.input-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: 700; /* Bold */
+    -fx-text-fill: #475569; /* slate-600 */
+}
+
+/* Custom Text Fields & Password Fields */
+.custom-input {
+    -fx-background-color: #f8fafc; /* slate-50 */
+    -fx-border-color: #f1f5f9; /* slate-100 */
+    -fx-border-width: 2px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 14px 14px 14px 44px; /* Left padding creates space for the icon */
+    -fx-font-size: 14px;
+    -fx-text-fill: #334155; /* slate-700 */
+    -fx-prompt-text-fill: #94a3b8; /* slate-400 */
+}
+
+.custom-input:focused {
+    -fx-background-color: white;
+    -fx-border-color: #14b8a6; /* teal-500 */
+    -fx-effect: dropshadow(three-pass-box, rgba(20, 184, 166, 0.1), 10, 0, 0, 4);
+}
+
+/* Custom ComboBox */
+.custom-combo {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #f1f5f9;
+    -fx-border-width: 2px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 4px 0 4px 34px; /* Adjust padding to fit icon */
+    -fx-font-size: 14px;
+    -fx-text-fill: #334155;
+}
+
+.custom-combo:focused {
+    -fx-background-color: white;
+    -fx-border-color: #14b8a6;
+}
+
+/* Fix ComboBox Arrow and List Cell colors */
+.custom-combo .arrow-button {
+    -fx-background-color: transparent;
+}
+.custom-combo .arrow {
+    -fx-background-color: #94a3b8;
+}
+.custom-combo .list-cell {
+    -fx-text-fill: #334155;
+}
+
+/* Primary Action Button (Gradient) */
+.primary-button {
+    -fx-background-color: linear-gradient(to right, #0d9488, #059669); /* teal-600 to emerald-600 */
+    -fx-text-fill: white;
+    -fx-font-weight: 700; /* Bold */
+    -fx-font-size: 14px;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-padding: 12px 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(20, 184, 166, 0.3), 10, 0, 0, 4);
+}
+
+.primary-button:hover {
+    /* Slightly lighter/different shadow on hover */
+    -fx-effect: dropshadow(three-pass-box, rgba(20, 184, 166, 0.5), 15, 0, 0, 4);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.primary-button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Error Box Styling */
+.error-box {
+    -fx-background-color: #fff1f2; /* rose-50 */
+    -fx-border-color: #ffe4e6; /* rose-100 */
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+}
+
+/* Footer Links & Text */
+.footer-text {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #64748b;
+}
+
+.footer-link {
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
+    -fx-text-fill: #0d9488; /* teal-600 */
+    -fx-underline: false;
+}
+
+.footer-link:visited {
+    -fx-text-fill: #0d9488;
+}
+
+.footer-link:hover {
+    -fx-underline: true;
+}
+
+.copyright-text {
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+    -fx-text-fill: rgba(148, 163, 184, 0.8); /* slate-400 with opacity */
+}
