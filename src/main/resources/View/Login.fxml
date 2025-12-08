@@ -55,14 +55,6 @@
 
             <children>
                 <!-- Icon & Title -->
-                <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="64.0" prefWidth="64.0" styleClass="icon-container">
-                    <children>
-                        <SVGPath content="M6 6 L18 18 M6 18 L18 6 M8 8 A2 2 0 1 0 8 4 A2 2 0 1 0 8 8 M16 16 A2 2 0 1 0 16 20 A2 2 0 1 0 16 16" fill="WHITE" scaleX="1.5" scaleY="1.5" stroke="WHITE" strokeWidth="2" />
-                    </children>
-                    <VBox.margin>
-                        <Insets bottom="16.0" />
-                    </VBox.margin>
-                </StackPane>
 
                 <Label styleClass="title-text" text="Salon Login" />
                 <Label styleClass="subtitle-text" text="Silakan masuk untuk melanjutkan">
@@ -144,7 +136,7 @@
                         </Label>
                         <!-- fx:id disesuaikan dengan Controller: linkRegister -->
                         <!-- onAction disesuaikan dengan Controller: #onOpenRegister -->
-                        <Hyperlink fx:id="linkRegister" onAction="#onOpenRegister" text="Daftar Karyawan" textFill="#0d9488" styleClass="footer-link"/>
+                        <Hyperlink fx:id="linkRegister" onAction="#keHalamanRegister" text="Daftar Karyawan" textFill="#0d9488" styleClass="footer-link"/>
                     </children>
                     <VBox.margin>
                         <Insets top="25.0" />

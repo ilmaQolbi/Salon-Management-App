@@ -19,14 +19,12 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role;
+
     }
-    
-    public User(String idUser, String email, String password, String role) {
-        this.setIdUser(idUser);
-        this.setEmail(email);
-        this.setPass(password);
-        this.setRole(role);
+    public void SetUser(String idUser, String nama, String email, String password, String role) {
+        this.idUser = idUser;
     }
+
 
     public String getNama() {
         return nama;

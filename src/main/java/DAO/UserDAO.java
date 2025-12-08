@@ -1,7 +1,5 @@
 package DAO;
-
-import static DAO.BaseDAO.closeCon;
-import static DAO.BaseDAO.getCon;
+import static DAO.DatabaseManager.connect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,10 +12,10 @@ public class UserDAO {
     private static Connection con;
 
     // LOGIN VALIDATION
-    public static User validate(String email, String password, String role) {
+    public static User validasiLogin(String email, String password, String role) {
         User u = null;
         try {
-            con = getCon();
+            con = connect();
             String query = "SELECT idUser, nama, email, password, role FROM users WHERE email = ? AND password = ? AND role = ?";
 
             st = con.prepareStatement(query);
@@ -26,7 +24,7 @@ public class UserDAO {
             st.setString(3, role);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                // sesuaikan dengan constructor User-mu
+
                 u = new User(
                         rs.getString("idUser"),
                         rs.getString("nama"),
@@ -38,18 +36,13 @@ public class UserDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closeCon(con);
         }
         return u;
     }
 
     // REGISTER USER
-    public static void registerUser(User user) throws SQLException {
+    public static void registrasiUser(User user) throws SQLException {
 
-        // 1. Siapkan Query
-        // Kita perlu mengisi kolom 'nama' dan 'status' secara default
-        // karena di form register belum ada input nama.
         String query = "INSERT INTO users (idUser, email, password, role, status, nama) VALUES (?, ?, ?, ?, ?, ?)";
 
         // 2. Tentukan Data Default

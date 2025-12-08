@@ -3,18 +3,20 @@
     -fx-font-family: 'Segoe UI', sans-serif;
 }
 
+/* PERUBAHAN 1: Background Utama jadi Putih Polos */
 .main-background {
-    -fx-background-color: #f8fafc; /* slate-50 */
+    -fx-background-color: #ffffff;
 }
 
-/* Glassmorphism Card Style */
+/* PERUBAHAN 2: Kartu Glass jadi Agak Abu-abu */
 .glass-card {
-    -fx-background-color: rgba(255, 255, 255, 0.85); /* White with opacity */
+    /* Menggunakan warna abu muda (gray-100) dengan transparansi */
+    -fx-background-color: rgba(243, 244, 246, 0.9);
     -fx-background-radius: 24px;
-    -fx-border-color: rgba(255, 255, 255, 0.5);
+    /* Border dibuat sedikit lebih gelap dari kartu agar terlihat */
+    -fx-border-color: rgba(229, 231, 235, 0.8);
     -fx-border-radius: 24px;
     -fx-border-width: 1px;
-    /* DropShadow handled in FXML via <effect>, but can be reinforced here if needed */
 }
 
 /* Header Icon Container with Gradient */
@@ -49,10 +51,10 @@
     -fx-text-fill: #475569; /* slate-600 */
 }
 
-/* Custom Text Fields & Password Fields */
+/* PERUBAHAN 3: Input Field jadi Putih agar kontras dengan kartu Abu */
 .custom-input {
-    -fx-background-color: #f8fafc; /* slate-50 */
-    -fx-border-color: #f1f5f9; /* slate-100 */
+    -fx-background-color: #ffffff; /* Input jadi putih bersih */
+    -fx-border-color: #e2e8f0; /* Border abu sangat muda */
     -fx-border-width: 2px;
     -fx-border-radius: 12px;
     -fx-background-radius: 12px;
@@ -63,15 +65,15 @@
 }
 
 .custom-input:focused {
-    -fx-background-color: white;
+    -fx-background-color: #ffffff;
     -fx-border-color: #14b8a6; /* teal-500 */
     -fx-effect: dropshadow(three-pass-box, rgba(20, 184, 166, 0.1), 10, 0, 0, 4);
 }
 
 /* Custom ComboBox */
 .custom-combo {
-    -fx-background-color: #f8fafc;
-    -fx-border-color: #f1f5f9;
+    -fx-background-color: #ffffff; /* Input jadi putih bersih */
+    -fx-border-color: #e2e8f0;
     -fx-border-width: 2px;
     -fx-border-radius: 12px;
     -fx-background-radius: 12px;
@@ -81,7 +83,7 @@
 }
 
 .custom-combo:focused {
-    -fx-background-color: white;
+    -fx-background-color: #ffffff;
     -fx-border-color: #14b8a6;
 }
 

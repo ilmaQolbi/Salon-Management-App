@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AdminDashboardController {
+public class AdminController {
 
     // --- 1. UI ELEMENTS (FXML) ---
 
@@ -69,11 +69,7 @@ public class AdminDashboardController {
         colDurasi.setCellValueFactory(new PropertyValueFactory<>("durasi"));
         tableLayanan.setItems(DaftarLayanan);
 
-        // C. Load Semua Data dari Database
-        loadDataKaryawan();
-        loadDataLayanan();
-
-        // D. Tampilkan View Default
+        // C. Tampilkan View Default
         handleShowKaryawan(null);
     }
 

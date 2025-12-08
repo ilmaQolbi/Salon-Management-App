@@ -1,5 +1,4 @@
 package DAO;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -28,6 +27,7 @@ public class DatabaseManager {
             return null;
         }
     }
+
 
     // Method untuk tambah/hapus/edit (INSERT, UPDATE, DELETE)
     public static int executeUpdate(String query, Object... params) {
