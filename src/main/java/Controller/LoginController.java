@@ -10,9 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -60,12 +58,12 @@ public class LoginController implements Initializable {
                 // 3. Arahkan User sesuai Role
                 // Masuk ke Admin Dashboard
                 if (role.equalsIgnoreCase("Admin")) {
-                    goToDashboard(event, "/View/AdminDashboard.fxml", "Admin Dashboard", user);
+                    keDashboard(event, "/View/AdminDashboard.fxml", "Admin Dashboard", user);
                     // Masuk ke Kasir Dashboard
                 } else if (role.equalsIgnoreCase("Kasir")) {
-                    goToDashboard(event, "/View/KasirDashboard.fxml", "Kasir Salon", user);
+                    keDashboard(event, "/View/KasirDashboard.fxml", "Kasir Salon", user);
                 } else if (role.equalsIgnoreCase("Karyawan")) {
-                    goToDashboard(event, "/View/KaryawanDashboard.fxml", "Karyawan Dashboard", user);
+                    keDashboard(event, "/View/KaryawanDashboard.fxml", "Karyawan Dashboard", user);
                 }
 
             } else {
@@ -75,7 +73,7 @@ public class LoginController implements Initializable {
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Terjadi kesalahan database: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan : " + e.getMessage());
         }
     }
 
@@ -98,20 +96,20 @@ public class LoginController implements Initializable {
     }
 
     // --- HELPER UNTUK PINDAH SCENE ---
-    private void goToDashboard(ActionEvent event, String fxmlPath, String title, User user) {
+    private void keDashboard(ActionEvent aksi, String lokasiFxml, String judul, User user) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(lokasiFxml));
             Parent root = loader.load();
 
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) aksi.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle(title);
+            stage.setTitle(judul);
             stage.centerOnScreen();
             stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Gagal memuat halaman: " + fxmlPath + "\nError: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Gagal memuat halaman: " + lokasiFxml + "\nError: " + e.getMessage());
         }
     }
 }
