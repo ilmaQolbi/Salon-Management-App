@@ -12,7 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // Pastikan kolom status ada di tabel detail_transaksi
+        // Pastikan kolom status ada di tabel antrian_Pelanggan
         DAO.DatabaseManager.ensureStatusColumn();
 
         Parent root = FXMLLoader.load(getClass().getResource("/View/Login.fxml"));

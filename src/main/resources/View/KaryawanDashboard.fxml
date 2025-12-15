@@ -220,6 +220,21 @@
                                                 </Label>
                                             </children>
                                         </VBox>
+                                        
+                                        <!-- CARD ESTIMASI GAJI -->
+                                        <VBox prefWidth="300.0" styleClass="card-pane" style="-fx-background-color: linear-gradient(to right, #1b5e20, #2e7d32);">
+                                            <children>
+                                                <Label text="Estimasi Gaji Bulan Ini" textFill="WHITE">
+                                                    <font><Font name="System Bold" size="14.0" /></font>
+                                                </Label>
+                                                <Label fx:id="lblEstimasiGaji" text="Rp 4.800.000" textFill="WHITE">
+                                                    <font><Font name="System Bold" size="32.0" /></font>
+                                                </Label>
+                                                <Label text="Gaji Pokok + Komisi" textFill="#ffffffcc">
+                                                    <font><Font size="11.0" /></font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
                                     </children>
                                 </HBox>
 

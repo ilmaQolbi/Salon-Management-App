@@ -22,6 +22,8 @@ import java.util.Optional;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import DAO.LayananDAO;
+import DAO.TransaksiDAO;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -88,21 +90,11 @@ public class KasirController {
     }
 
     // --- LOGIKA LOAD DATA ---
+    // --- LOGIKA LOAD DATA ---
     private void muatLayanan() {
         DaftarLayanan.clear();
-        String query = "SELECT * FROM layanan";
-        ResultSet rs = DatabaseManager.executeQuery(query);
-        try {
-            while (rs != null && rs.next()) {
-                DaftarLayanan.add(new Layanan(
-                        rs.getInt("id_layanan"),
-                        rs.getString("nama_layanan"),
-                        rs.getDouble("harga"),
-                        rs.getInt("durasi")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        LayananDAO dao = new LayananDAO();
+        DaftarLayanan.addAll(dao.getAllLayanan());
     }
 
     // --- LOGIKA TOMBOL "TAMBAH" DI TABEL ---
@@ -192,7 +184,7 @@ public class KasirController {
             case "Transfer":
                 paymentConfirmed = showTransferPaymentDialog(totalHarga);
                 if (paymentConfirmed) {
-                    paymentDetails = "Bank BNI - 0234503418";
+                    paymentDetails = "Bank BNI - 012345678";
                 }
                 break;
             case "E-Wallet":
@@ -216,31 +208,21 @@ public class KasirController {
             return;
         }
 
-        // 5. Insert ke Tabel Header (TRANSAKSI)
+        // 5. Simpan Transaksi via TransaksiDAO
         if (currentUserId.equals("KRY-UNKNOWN")) {
             currentUserId = getFirstUserId();
         }
 
-        String sqlHeader = "INSERT INTO transaksi (id_user, nama_pelanggan, total_harga, metode_pembayaran, tanggal) VALUES (?, ?, ?, ?, NOW())";
+        TransaksiDAO trxDao = new TransaksiDAO();
+        int idTransaksi = trxDao.simpanTransaksi(currentUserId, namaPelanggan, totalHarga, metodePembayaran,
+                listKeranjang, selectedKaryawanId);
 
-        int res = DatabaseManager.executeUpdate(sqlHeader, currentUserId, namaPelanggan, totalHarga, metodePembayaran);
-
-        if (res > 0) {
-            // 6. Ambil ID Transaksi Terakhir
-            int idTransaksi = getLastTransactionId();
-
-            // 7. Insert Detail Transaksi dengan assigned_to karyawan
-            for (Layanan item : listKeranjang) {
-                String sqlDetail = "INSERT INTO detail_transaksi (id_transaksi, id_layanan, harga_saat_itu, status, assigned_to) VALUES (?, ?, ?, 'Menunggu', ?)";
-                DatabaseManager.executeUpdate(sqlDetail, idTransaksi, item.getIdLayanan(), item.getHarga(),
-                        selectedKaryawanId);
-            }
-
-            // 8. Tampilkan Struk/Receipt
+        if (idTransaksi != -1) {
+            // 6. Tampilkan Struk/Receipt
             showReceiptDialog(namaPelanggan, totalHarga, metodePembayaran, paymentDetails, idTransaksi);
             handleReset(null);
         } else {
-            tampilkanPeringatan(Alert.AlertType.ERROR, "Gagal", "Gagal menyimpan transaksi.");
+            tampilkanPeringatan(Alert.AlertType.ERROR, "Gagal", "Gagal menyimpan transaksi. Silakan coba lagi.");
         }
     }
 
@@ -407,7 +389,7 @@ public class KasirController {
         Label lblRekLabel = new Label("Nomor Rekening:");
         lblRekLabel.getStyleClass().add("instruction-label");
 
-        Label lblRekening = new Label("0234503418");
+        Label lblRekening = new Label("012345678");
         lblRekening.getStyleClass().add("rekening-value");
 
         // Nama Pemilik
@@ -535,7 +517,7 @@ public class KasirController {
 
         // Header Struk
         Label lblStoreName = new Label("✨ SALON BEAUTY ✨");
-        lblStoreName.getStyleClass().add("store-name");
+        lblStoreName.getStyleClass().add("Salon UPI_PWK");
 
         Label lblAddress = new Label("Jl. Veteran No. 8");
         lblAddress.getStyleClass().add("store-address");
@@ -718,16 +700,8 @@ public class KasirController {
     private String showSelectKaryawanDialog() {
         // Load daftar karyawan dari database
         ObservableList<String[]> listKaryawan = FXCollections.observableArrayList();
-        String query = "SELECT idUser, nama FROM users WHERE role = 'Karyawan' AND status = 'Aktif' ORDER BY nama";
-        ResultSet rs = DatabaseManager.executeQuery(query);
-
-        try {
-            while (rs != null && rs.next()) {
-                listKaryawan.add(new String[] { rs.getString("idUser"), rs.getString("nama") });
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // Load daftar karyawan dari database via UserDAO
+        listKaryawan.addAll(DAO.UserDAO.getKaryawanAktif());
 
         if (listKaryawan.isEmpty()) {
             tampilkanPeringatan(Alert.AlertType.WARNING, "Tidak Ada Karyawan",
@@ -805,18 +779,9 @@ public class KasirController {
     }
 
     // --- HELPER SQL ---
-    private int getLastTransactionId() {
-        String query = "SELECT MAX(id_transaksi) as last_id FROM transaksi";
-        ResultSet rs = DatabaseManager.executeQuery(query);
-        try {
-            if (rs != null && rs.next()) {
-                return rs.getInt("last_id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+    // --- HELPER SQL ---
+    // getLastTransactionId dihapus karena sudah ditangani oleh TransaksiDAO
+    // (generated keys)
 
     private String getFirstUserId() {
         // Fallback method: mengambil sembarang ID user agar tidak error foreign key

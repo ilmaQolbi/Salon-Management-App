@@ -82,4 +82,19 @@ public class UserDAO {
             return false;
         }
     }
+
+    // AMBIL KARYAWAN AKTIF (Id & Nama)
+    public static java.util.List<String[]> getKaryawanAktif() {
+        java.util.List<String[]> list = new java.util.ArrayList<>();
+        String query = "SELECT idUser, nama FROM users WHERE role = 'Karyawan' AND status = 'Aktif' ORDER BY nama";
+        ResultSet rs = DatabaseManager.executeQuery(query);
+        try {
+            while (rs != null && rs.next()) {
+                list.add(new String[] { rs.getString("idUser"), rs.getString("nama") });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

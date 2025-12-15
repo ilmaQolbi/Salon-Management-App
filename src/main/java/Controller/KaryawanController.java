@@ -40,6 +40,8 @@ public class KaryawanController {
     private Label lblTotalKomisi;
     @FXML
     private Label lblTotalPekerjaan;
+    @FXML
+    private Label lblEstimasiGaji;
 
     // Views
     @FXML
@@ -95,7 +97,8 @@ public class KaryawanController {
     private ObservableList<KomisiModel> listKomisi = FXCollections.observableArrayList();
     private String currentUserId;
 
-    private static final double Komisi = 0.10; // 10% komisi per layanan
+    private static final double Komisi = 0.05; // 5% komisi per layanan
+    private static final double GAJI_POKOK = 4800000;
     private NumberFormat rupiah = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
 
     @FXML
@@ -163,14 +166,14 @@ public class KaryawanController {
         int doneCount = 0;
         double komisiHariIni = 0;
 
-        // Filter berdasarkan assigned_to = ID Karyawan yang login
-        String query = "SELECT dt.id_detail, t.id_transaksi, t.nama_pelanggan, l.nama_layanan, l.harga, t.tanggal, dt.status "
+        // Filter berdasarkan id_karyawan = ID Karyawan yang login
+        String query = "SELECT ap.id_antrian, t.id_transaksi, t.nama_pelanggan, l.nama_layanan, l.harga, t.tanggal, ap.status "
                 +
-                "FROM detail_transaksi dt " +
-                "JOIN transaksi t ON dt.id_transaksi = t.id_transaksi " +
-                "JOIN layanan l ON dt.id_layanan = l.id_layanan " +
-                "WHERE dt.assigned_to = '" + currentUserId + "' " +
-                "ORDER BY CASE WHEN dt.status = 'Selesai' THEN 1 ELSE 0 END, t.tanggal DESC " +
+                "FROM antrian_Pelanggan ap " +
+                "JOIN transaksi t ON ap.id_transaksi = t.id_transaksi " +
+                "JOIN layanan l ON ap.id_layanan = l.id_layanan " +
+                "WHERE ap.id_karyawan = '" + currentUserId + "' " +
+                "ORDER BY CASE WHEN ap.status = 'Selesai' THEN 1 ELSE 0 END, t.tanggal DESC " +
                 "LIMIT 50";
 
         ResultSet rs = DatabaseManager.executeQuery(query);
@@ -182,7 +185,7 @@ public class KaryawanController {
                 double harga = rs.getDouble("harga");
 
                 listPekerjaan.add(new PekerjaanModel(
-                        rs.getInt("id_detail"),
+                        rs.getInt("id_antrian"),
                         rs.getInt("id_transaksi"),
                         rs.getString("nama_pelanggan"),
                         rs.getString("nama_layanan"),
@@ -207,19 +210,19 @@ public class KaryawanController {
 
     private void muatDataRiwayat() {
         listRiwayat.clear();
-        // Filter berdasarkan assigned_to = ID Karyawan yang login
-        String query = "SELECT dt.id_detail, t.id_transaksi, t.nama_pelanggan, l.nama_layanan, t.tanggal, dt.status " +
-                "FROM detail_transaksi dt " +
-                "JOIN transaksi t ON dt.id_transaksi = t.id_transaksi " +
-                "JOIN layanan l ON dt.id_layanan = l.id_layanan " +
-                "WHERE dt.status = 'Selesai' AND dt.assigned_to = '" + currentUserId + "' " +
+        // Filter berdasarkan id_karyawan = ID Karyawan yang login
+        String query = "SELECT ap.id_antrian, t.id_transaksi, t.nama_pelanggan, l.nama_layanan, t.tanggal, ap.status " +
+                "FROM antrian_Pelanggan ap " +
+                "JOIN transaksi t ON ap.id_transaksi = t.id_transaksi " +
+                "JOIN layanan l ON ap.id_layanan = l.id_layanan " +
+                "WHERE ap.status = 'Selesai' AND ap.id_karyawan = '" + currentUserId + "' " +
                 "ORDER BY t.tanggal DESC LIMIT 100";
 
         ResultSet rs = DatabaseManager.executeQuery(query);
         try {
             while (rs != null && rs.next()) {
                 listRiwayat.add(new PekerjaanModel(
-                        rs.getInt("id_detail"),
+                        rs.getInt("id_antrian"),
                         rs.getInt("id_transaksi"),
                         rs.getString("nama_pelanggan"),
                         rs.getString("nama_layanan"),
@@ -236,12 +239,15 @@ public class KaryawanController {
         double totalKomisi = 0;
         int totalPekerjaan = 0;
 
-        // Filter berdasarkan assigned_to = ID Karyawan yang login
+        // Filter berdasarkan id_karyawan = ID Karyawan yang login DAN Bulan Ini
         String query = "SELECT l.nama_layanan, COUNT(*) as jumlah, SUM(l.harga) * " + Komisi + " as komisi " +
-                "FROM detail_transaksi dt " +
-                "JOIN transaksi t ON dt.id_transaksi = t.id_transaksi " +
-                "JOIN layanan l ON dt.id_layanan = l.id_layanan " +
-                "WHERE dt.status = 'Selesai' AND dt.assigned_to = '" + currentUserId + "' " +
+                "FROM antrian_Pelanggan ap " +
+                "JOIN transaksi t ON ap.id_transaksi = t.id_transaksi " +
+                "JOIN layanan l ON ap.id_layanan = l.id_layanan " +
+                "WHERE ap.status = 'Selesai' " +
+                "AND ap.id_karyawan = '" + currentUserId + "' " +
+                "AND MONTH(t.tanggal) = MONTH(CURRENT_DATE()) " +
+                "AND YEAR(t.tanggal) = YEAR(CURRENT_DATE()) " +
                 "GROUP BY l.nama_layanan " +
                 "ORDER BY komisi DESC";
 
@@ -263,6 +269,10 @@ public class KaryawanController {
 
         lblTotalKomisi.setText(rupiah.format(totalKomisi));
         lblTotalPekerjaan.setText(String.valueOf(totalPekerjaan));
+
+        // Hitung Estimasi Gaji (Pokok + Komisi)
+        double estimasiGaji = GAJI_POKOK + totalKomisi;
+        lblEstimasiGaji.setText(rupiah.format(estimasiGaji));
     }
 
     // --- VIEW SWITCHING ---
@@ -298,7 +308,7 @@ public class KaryawanController {
                 "Konfirmasi", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            String query = "UPDATE detail_transaksi SET status = 'Selesai' WHERE id_detail = ?";
+            String query = "UPDATE antrian_Pelanggan SET status = 'Selesai' WHERE id_antrian = ?";
             int res = DatabaseManager.executeUpdate(query, data.getIdDetail());
 
             if (res > 0) {

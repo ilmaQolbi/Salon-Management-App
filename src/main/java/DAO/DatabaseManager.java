@@ -45,24 +45,24 @@ public class DatabaseManager {
         }
     }
 
-    // Method untuk memastikan kolom status ada di tabel detail_transaksi
+    // Method untuk memastikan kolom ada di tabel antrian_Pelanggan
     public static void ensureStatusColumn() {
         try (Connection conn = connect();
                 Statement stmt = conn.createStatement()) {
 
             // Coba tambahkan kolom status jika belum ada
-            String alterQuery = "ALTER TABLE detail_transaksi ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'Menunggu'";
+            String alterQuery = "ALTER TABLE antrian_Pelanggan ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'Menunggu'";
             stmt.executeUpdate(alterQuery);
 
-            // Tambahkan kolom assigned_to untuk menyimpan ID karyawan yang ditugaskan
-            String alterQuery2 = "ALTER TABLE detail_transaksi ADD COLUMN IF NOT EXISTS assigned_to VARCHAR(20) DEFAULT NULL";
+            // Tambahkan kolom id_karyawan untuk menyimpan ID karyawan yang ditugaskan
+            String alterQuery2 = "ALTER TABLE antrian_Pelanggan ADD COLUMN IF NOT EXISTS id_karyawan VARCHAR(20) DEFAULT NULL";
             stmt.executeUpdate(alterQuery2);
 
-            System.out.println("Columns 'status' and 'assigned_to' ensured in detail_transaksi table.");
+            System.out.println("Kolom 'status' dan 'id_karyawan' sudah dipastikan ada di tabel antrian_Pelanggan.");
 
         } catch (SQLException e) {
             // Kolom mungkin sudah ada atau syntax tidak didukung, abaikan error
-            System.out.println("Note: " + e.getMessage());
+            System.out.println("Catatan: " + e.getMessage());
         }
     }
 
