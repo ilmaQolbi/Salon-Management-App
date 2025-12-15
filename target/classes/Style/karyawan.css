@@ -1,0 +1,242 @@
+/* =============================================
+   KARYAWAN DASHBOARD STYLES - TEMA COKLAT SALON
+   ============================================= */
+
+/* === ROOT CONTAINER === */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-background-color: #fdfbf7;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+    -fx-background-color: #3e2723;
+}
+
+.sidebar-header {
+    -fx-background-color: linear-gradient(to bottom, #5d4037, #3e2723);
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #d7ccc8;
+    -fx-font-size: 13px;
+    -fx-padding: 12 15 12 15;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-text-fill: white;
+}
+
+.sidebar-button:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* === CARDS === */
+.card-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(62, 39, 35, 0.15), 10, 0, 0, 3);
+}
+
+.stat-card {
+    -fx-background-radius: 12;
+    -fx-padding: 18;
+    -fx-effect: dropshadow(gaussian, rgba(62, 39, 35, 0.2), 10, 0, 0, 3);
+}
+
+/* Stat Card Colors - Brown Theme */
+.stat-card-pending {
+    -fx-background-color: linear-gradient(to right, #8d6e63, #a1887f);
+}
+
+.stat-card-done {
+    -fx-background-color: linear-gradient(to right, #6d4c41, #8d6e63);
+}
+
+.stat-card-komisi {
+    -fx-background-color: linear-gradient(to right, #5d4037, #795548);
+}
+
+.stat-card-total {
+    -fx-background-color: linear-gradient(to right, #4e342e, #6d4c41);
+}
+
+.stat-card-count {
+    -fx-background-color: linear-gradient(to right, #3e2723, #5d4037);
+}
+
+/* === LABELS === */
+.label-header {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3e2723;
+}
+
+.label-subheader {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5d4037;
+}
+
+.label-stat-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.label-stat-value {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.label-stat-desc {
+    -fx-font-size: 11px;
+    -fx-text-fill: rgba(255, 255, 255, 0.85);
+}
+
+/* === TABLES === */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #d7ccc8;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #5d4037;
+    -fx-background-radius: 8 8 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 10 5 10 5;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #efebe9 transparent;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #fdfbf7;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #efebe9;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #8d6e63;
+}
+
+.table-view .table-row-cell:selected .text {
+    -fx-fill: white;
+}
+
+.table-cell {
+    -fx-padding: 8 10 8 10;
+    -fx-font-size: 13px;
+    -fx-text-fill: #3e2723;
+}
+
+/* === BUTTONS === */
+.btn-primary {
+    -fx-background-color: #795548;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #6d4c41;
+}
+
+.btn-success {
+    -fx-background-color: #6d4c41;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.btn-success:hover {
+    -fx-background-color: #5d4037;
+}
+
+.btn-success:disabled {
+    -fx-background-color: #bcaaa4;
+    -fx-opacity: 0.7;
+}
+
+.btn-danger {
+    -fx-background-color: #a1887f;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.btn-danger:hover {
+    -fx-background-color: #8d6e63;
+}
+
+.btn-refresh {
+    -fx-background-color: #795548;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 6 12 6 12;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.btn-refresh:hover {
+    -fx-background-color: #6d4c41;
+}
+
+/* === FAB BUTTON === */
+.fab-btn {
+    -fx-background-color: #5d4037;
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-padding: 10 20 10 20;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(62, 39, 35, 0.4), 10, 0, 0, 4);
+    -fx-cursor: hand;
+}
+
+.fab-btn:hover {
+    -fx-background-color: #4e342e;
+    -fx-effect: dropshadow(gaussian, rgba(62, 39, 35, 0.5), 14, 0, 0, 5);
+}
+
+/* === SCROLL PANE === */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane>.viewport {
+    -fx-background-color: transparent;
+}
+
+/* === CONTENT AREA === */
+.content-area {
+    -fx-background-color: #fdfbf7;
+}

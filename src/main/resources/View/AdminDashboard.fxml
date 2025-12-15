@@ -7,49 +7,27 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@../Style/styleAdmin.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminController">
 
     <left>
-        <VBox prefHeight="600.0" prefWidth="220.0" spacing="10.0" style="-fx-background-color: #2C3E50;" BorderPane.alignment="CENTER">
+        <!-- Sidebar dengan Gradient Rose -->
+        <VBox prefHeight="600.0" prefWidth="220.0" spacing="10.0" styleClass="sidebar" BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="CENTER" prefHeight="60.0" prefWidth="220.0" text="SALON ADMIN" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Label>
-                <Button fx:id="btnKaryawan" mnemonicParsing="false" onAction="#handleShowKaryawan" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Kelola Karyawan">
-                    <padding>
-                        <Insets left="20.0" />
-                    </padding>
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Button>
-                <Button fx:id="btnLayanan" mnemonicParsing="false" onAction="#handleShowLayanan" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Kelola Layanan">
-                    <padding>
-                        <Insets left="20.0" />
-                    </padding>
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Button>
-                <Button fx:id="btnLaporan" mnemonicParsing="false" onAction="#handleShowLaporan" prefHeight="40.0" prefWidth="220.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Laporan Penjualan">
-                    <padding>
-                        <Insets left="20.0" />
-                    </padding>
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Button>
-                <VBox alignment="BOTTOM_CENTER" prefHeight="350.0" prefWidth="220.0" VBox.vgrow="ALWAYS">
+                <Label alignment="CENTER" prefHeight="60.0" prefWidth="220.0" styleClass="sidebar-title" text="SALON ADMIN" />
+                
+                <Button fx:id="btnKaryawan" mnemonicParsing="false" onAction="#lihatKaryawan" prefWidth="220.0" styleClass="sidebar-button" text="Kelola Karyawan" />
+                <Button fx:id="btnLayanan" mnemonicParsing="false" onAction="#lihatLayanan" prefWidth="220.0" styleClass="sidebar-button" text="Kelola Layanan" />
+                <Button fx:id="btnLaporan" mnemonicParsing="false" onAction="#handleShowLaporan" prefWidth="220.0" styleClass="sidebar-button" text="Laporan Kendala" />
+                
+                <VBox alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS">
                     <children>
-                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogout" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #E74C3C; -fx-text-fill: white;" text="Logout" />
+                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogout" prefHeight="40.0" prefWidth="180.0" styleClass="logout-button" text="Logout" />
                     </children>
                     <padding>
                         <Insets bottom="20.0" />
@@ -60,55 +38,56 @@
     </left>
 
     <center>
-        <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="content-area" BorderPane.alignment="CENTER">
             <children>
 
-                <VBox fx:id="viewKaryawan" prefHeight="200.0" prefWidth="100.0" spacing="15.0" style="-fx-background-color: #ECF0F1;">
+                <!-- View Karyawan -->
+                <VBox fx:id="viewKaryawan" prefHeight="200.0" prefWidth="100.0" spacing="15.0" styleClass="content-area">
                     <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </padding>
                     <children>
-                        <Label text="Manajemen Data Karyawan">
-                            <font>
-                                <Font name="System Bold" size="24.0" />
-                            </font>
-                        </Label>
+                        <Label styleClass="page-title" text="Manajemen Data Pengguna" />
                         <HBox spacing="10.0">
                             <children>
-                                <TextField fx:id="txtNamaKaryawan" promptText="Nama Karyawan" HBox.hgrow="ALWAYS" />
-                                <ComboBox fx:id="cbRole" prefWidth="150.0" promptText="Pilih Role" />
-                                <ComboBox fx:id="cbStatus" prefWidth="120.0" promptText="Status" />
-                                <Button mnemonicParsing="false" onAction="#aksiTambahKaryawan" style="-fx-background-color: #27AE60; -fx-text-fill: white;" text="Tambah" />
-                                <Button mnemonicParsing="false" onAction="#aksiHapusKaryawan" style="-fx-background-color: #C0392B; -fx-text-fill: white;" text="Hapus" />
+                                <TextField fx:id="txtNamaKaryawan" prefWidth="150.0" promptText="Nama" styleClass="custom-input" />
+                                <TextField fx:id="txtUsername" prefWidth="180.0" promptText="Username (Email)" styleClass="custom-input" />
+                                <PasswordField fx:id="txtPassword" prefWidth="120.0" promptText="Password" styleClass="custom-input" />
+                                <ComboBox fx:id="cbRole" prefWidth="120.0" promptText="Role" styleClass="custom-combo" />
+                                <ComboBox fx:id="cbStatus" prefWidth="100.0" promptText="Status" styleClass="custom-combo" />
+                                <Button mnemonicParsing="false" onAction="#aksiTambahKaryawan" styleClass="action-button-success" text="Tambah" />
+                                <Button mnemonicParsing="false" onAction="#aksiUpdateKaryawan" styleClass="action-button-warning" text="Update" />
+                                <Button mnemonicParsing="false" onAction="#aksiHapusKaryawan" styleClass="action-button-danger" text="Hapus" />
                             </children>
                         </HBox>
                         <TableView fx:id="tableKaryawan" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                             <columns>
                                 <TableColumn fx:id="colIdKaryawan" prefWidth="75.0" text="ID" />
-                                <TableColumn fx:id="colNamaKaryawan" prefWidth="200.0" text="Nama" />
-                                <TableColumn fx:id="colRole" prefWidth="150.0" text="Role" />
-                                <TableColumn fx:id="colStatus" prefWidth="100.0" text="Status" />
+                                <TableColumn fx:id="colNamaKaryawan" prefWidth="120.0" text="Nama" />
+                                <TableColumn fx:id="colEmail" prefWidth="200.0" text="Username" />
+                                <TableColumn fx:id="colPassword" prefWidth="120.0" text="Password" />
+                                <TableColumn fx:id="colRole" prefWidth="120.0" text="Role" />
+                                <TableColumn fx:id="colStatus" prefWidth="150.0" text="Status" />
                             </columns>
                         </TableView>
                     </children>
                 </VBox>
 
-                <VBox fx:id="viewLayanan" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" style="-fx-background-color: #ECF0F1;" visible="false">
+                <!-- View Layanan -->
+                <VBox fx:id="viewLayanan" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" styleClass="content-area" visible="false">
                     <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </padding>
                     <children>
-                        <Label text="Manajemen Layanan Salon">
-                            <font>
-                                <Font name="System Bold" size="24.0" />
-                            </font>
-                        </Label>
+                        <Label styleClass="page-title" text="Manajemen Layanan Salon" />
                         <HBox spacing="10.0">
                             <children>
-                                <TextField fx:id="txtNamaLayanan" promptText="Nama Layanan" HBox.hgrow="ALWAYS" />
-                                <TextField fx:id="txtHarga" prefWidth="150.0" promptText="Harga (Rp)" />
-                                <TextField fx:id="txtDurasi" prefWidth="100.0" promptText="Durasi (Menit)" />
-                                <Button mnemonicParsing="false" onAction="#aksiTambahLayanan" style="-fx-background-color: #2980B9; -fx-text-fill: white;" text="Simpan Layanan" />
+                                <TextField fx:id="txtNamaLayanan" promptText="Nama Layanan" styleClass="custom-input" HBox.hgrow="ALWAYS" />
+                                <TextField fx:id="txtHarga" prefWidth="150.0" promptText="Harga (Rp)" styleClass="custom-input" />
+                                <TextField fx:id="txtDurasi" prefWidth="100.0" promptText="Durasi (Menit)" styleClass="custom-input" />
+                                <Button mnemonicParsing="false" onAction="#aksiTambahLayanan" styleClass="action-button-success" text="Simpan Layanan" />
+                                <Button mnemonicParsing="false" onAction="#aksiUpdateLayanan" styleClass="action-button-warning" text="Update" />
+                                <Button mnemonicParsing="false" onAction="#aksiHapusLayanan" styleClass="action-button-danger" text="Hapus" />
                             </children>
                         </HBox>
                         <TableView fx:id="tableLayanan" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
@@ -118,23 +97,27 @@
                                 <TableColumn fx:id="colHarga" prefWidth="150.0" text="Harga" />
                                 <TableColumn fx:id="colDurasi" prefWidth="100.0" text="Durasi (Menit)" />
                             </columns>
-
-
-
-
-
                         </TableView>
                     </children>
                 </VBox>
 
-                <VBox fx:id="viewLaporan" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ECF0F1;" visible="false">
+                <!-- View Laporan -->
+                <VBox fx:id="viewLaporan" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" styleClass="content-area" visible="false">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
                     <children>
-                        <Label text="Dashboard Laporan Penjualan">
-                            <font>
-                                <Font size="28.0" />
-                            </font>
-                        </Label>
-                        <Label text="(Fitur Laporan Harian/Bulanan akan ditampilkan di sini)" textFill="#7f8c8d" />
+                        <Label styleClass="page-title" text="Laporan Kendala User" />
+                        <TableView fx:id="tableLaporan" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colLaporId" prefWidth="50.0" text="ID" />
+                                <TableColumn fx:id="colLaporUser" prefWidth="150.0" text="Pelapor" />
+                                <TableColumn fx:id="colLaporIsi" prefWidth="300.0" text="Isi Laporan" />
+                                <TableColumn fx:id="colLaporTanggal" prefWidth="150.0" text="Tanggal" />
+                                <TableColumn fx:id="colLaporStatus" prefWidth="100.0" text="Status" />
+                                <TableColumn fx:id="colLaporAksi" prefWidth="120.0" text="Aksi" />
+                            </columns>
+                        </TableView>
                     </children>
                 </VBox>
 

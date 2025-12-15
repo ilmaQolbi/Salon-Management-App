@@ -1,29 +1,58 @@
 /* Global Reset & Font */
 .root {
     -fx-font-family: 'Segoe UI', sans-serif;
+    /* PERUBAHAN: Set background image globally so it covers the whole window */
+    -fx-background-image: url("../Gambar/salon_bg.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
 }
 
-/* PERUBAHAN 1: Background Utama jadi Putih Polos */
-.main-background {
-    -fx-background-color: #ffffff;
+/* Branding Section (Transparent to show global bg) */
+.branding-section {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    /* Sedikit gelap agar teks terbaca */
+    -fx-alignment: center;
+    -fx-spacing: 20px;
 }
 
-/* PERUBAHAN 2: Kartu Glass jadi Agak Abu-abu */
-.glass-card {
-    /* Menggunakan warna abu muda (gray-100) dengan transparansi */
-    -fx-background-color: rgba(243, 244, 246, 0.9);
-    -fx-background-radius: 24px;
-    /* Border dibuat sedikit lebih gelap dari kartu agar terlihat */
-    -fx-border-color: rgba(229, 231, 235, 0.8);
-    -fx-border-radius: 24px;
-    -fx-border-width: 1px;
+.branding-title {
+    -fx-font-size: 36px;
+    -fx-font-weight: 800;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 4);
+}
+
+.branding-subtitle {
+    -fx-font-size: 16px;
+    -fx-font-weight: 500;
+    -fx-text-fill: rgba(255, 255, 255, 0.95);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0, 0, 2);
+}
+
+/* Right Form Section */
+/* Form Section (Now with Glassmorphism/Themed tint) */
+.form-section {
+    /* Background semi-transparan putih agar menyatu dengan tone gambar */
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
+}
+
+/* Adjusted Card for Form Side */
+.form-card {
+    -fx-background-color: transparent;
+    /* Card itself transparent, container handled bg */
+    -fx-padding: 40px;
+    -fx-alignment: center;
 }
 
 /* Header Icon Container with Gradient */
 .icon-container {
-    -fx-background-color: linear-gradient(to bottom right, #14b8a6, #059669); /* teal-500 to emerald-600 */
+    -fx-background-color: linear-gradient(to bottom right, #8d6e63, #5d4037);
+    /* Brown-400 to Brown-700 */
     -fx-background-radius: 16px;
-    -fx-effect: dropshadow(three-pass-box, rgba(20, 184, 166, 0.3), 10, 0, 0, 4);
+    -fx-effect: dropshadow(three-pass-box, rgba(93, 64, 55, 0.3), 10, 0, 0, 4);
     -fx-rotate: 3deg;
 }
 
@@ -35,84 +64,104 @@
 /* Typography Styling */
 .title-text {
     -fx-font-size: 24px;
-    -fx-font-weight: 700; /* Bold */
-    -fx-text-fill: #1e293b; /* slate-800 */
+    -fx-font-weight: 700;
+    /* Bold */
+    -fx-text-fill: #3e2723;
+    /* Very Dark Brown */
 }
 
 .subtitle-text {
     -fx-font-size: 14px;
-    -fx-font-weight: 500; /* Medium */
-    -fx-text-fill: #64748b; /* slate-500 */
+    -fx-font-weight: 500;
+    /* Medium */
+    -fx-text-fill: #4e342e;
+    /* Dark Brown */
 }
 
 .input-label {
     -fx-font-size: 11px;
-    -fx-font-weight: 700; /* Bold */
-    -fx-text-fill: #475569; /* slate-600 */
+    -fx-font-weight: 700;
+    /* Bold */
+    -fx-text-fill: #5d4037;
+    /* Brown */
 }
 
-/* PERUBAHAN 3: Input Field jadi Putih agar kontras dengan kartu Abu */
+/* PERUBAHAN 3: Input Field blends with brown theme */
 .custom-input {
-    -fx-background-color: #ffffff; /* Input jadi putih bersih */
-    -fx-border-color: #e2e8f0; /* Border abu sangat muda */
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    /* Input slightly transparent white */
+    -fx-border-color: #d7ccc8;
+    /* Light Brown border */
     -fx-border-width: 2px;
     -fx-border-radius: 12px;
     -fx-background-radius: 12px;
-    -fx-padding: 14px 14px 14px 44px; /* Left padding creates space for the icon */
+    -fx-padding: 14px 14px 14px 44px;
+    /* Left padding creates space for the icon */
     -fx-font-size: 14px;
-    -fx-text-fill: #334155; /* slate-700 */
-    -fx-prompt-text-fill: #94a3b8; /* slate-400 */
+    -fx-text-fill: #3e2723;
+    /* Dark text */
+    -fx-prompt-text-fill: #a1887f;
+    /* Brownish placeholder */
 }
 
 .custom-input:focused {
     -fx-background-color: #ffffff;
-    -fx-border-color: #14b8a6; /* teal-500 */
-    -fx-effect: dropshadow(three-pass-box, rgba(20, 184, 166, 0.1), 10, 0, 0, 4);
+    -fx-border-color: #6d4c41;
+    /* Primary Brown */
+    -fx-effect: dropshadow(three-pass-box, rgba(141, 110, 99, 0.2), 10, 0, 0, 4);
 }
 
 /* Custom ComboBox */
 .custom-combo {
-    -fx-background-color: #ffffff; /* Input jadi putih bersih */
-    -fx-border-color: #e2e8f0;
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-border-color: #d7ccc8;
+    /* Light Brown */
     -fx-border-width: 2px;
     -fx-border-radius: 12px;
     -fx-background-radius: 12px;
-    -fx-padding: 4px 0 4px 34px; /* Adjust padding to fit icon */
+    -fx-padding: 4px 0 4px 34px;
+    /* Adjust padding to fit icon */
     -fx-font-size: 14px;
-    -fx-text-fill: #334155;
+    -fx-text-fill: #3e2723;
 }
 
 .custom-combo:focused {
     -fx-background-color: #ffffff;
-    -fx-border-color: #14b8a6;
+    -fx-border-color: #6d4c41;
+    /* Brown */
 }
 
 /* Fix ComboBox Arrow and List Cell colors */
 .custom-combo .arrow-button {
     -fx-background-color: transparent;
 }
+
 .custom-combo .arrow {
-    -fx-background-color: #94a3b8;
+    -fx-background-color: #6d4c41;
+    /* Brown arrow */
 }
+
 .custom-combo .list-cell {
-    -fx-text-fill: #334155;
+    -fx-text-fill: #3e2723;
 }
 
 /* Primary Action Button (Gradient) */
 .primary-button {
-    -fx-background-color: linear-gradient(to right, #0d9488, #059669); /* teal-600 to emerald-600 */
+    -fx-background-color: linear-gradient(to right, #6d4c41, #4e342e);
+    /* Brown-600 to Brown-800 */
     -fx-text-fill: white;
-    -fx-font-weight: 700; /* Bold */
+    -fx-font-weight: 700;
+    /* Bold */
     -fx-font-size: 14px;
     -fx-background-radius: 12px;
     -fx-cursor: hand;
     -fx-padding: 12px 20px;
-    -fx-effect: dropshadow(three-pass-box, rgba(20, 184, 166, 0.3), 10, 0, 0, 4);
+    -fx-effect: dropshadow(three-pass-box, rgba(93, 64, 55, 0.4), 10, 0, 0, 4);
 }
 
 .primary-button:hover {
     /* Slightly lighter/different shadow on hover */
-    -fx-effect: dropshadow(three-pass-box, rgba(20, 184, 166, 0.5), 15, 0, 0, 4);
+    -fx-effect: dropshadow(three-pass-box, rgba(93, 64, 55, 0.6), 15, 0, 0, 4);
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
 }
@@ -124,8 +173,10 @@
 
 /* Error Box Styling */
 .error-box {
-    -fx-background-color: #fff1f2; /* rose-50 */
-    -fx-border-color: #ffe4e6; /* rose-100 */
+    -fx-background-color: #fff8f6;
+    /* Very light brown/orange tint */
+    -fx-border-color: #ffccbc;
+    /* Light orange/brown */
     -fx-border-radius: 12px;
     -fx-background-radius: 12px;
 }
@@ -134,7 +185,8 @@
 .footer-text {
     -fx-font-size: 13px;
     -fx-font-weight: 600;
-    -fx-text-fill: #64748b;
+    -fx-text-fill: #5d4037;
+    /* Brown */
 }
 
 .footer-link {
@@ -142,12 +194,13 @@
     -fx-padding: 0;
     -fx-font-weight: 700;
     -fx-font-size: 13px;
-    -fx-text-fill: #0d9488; /* teal-600 */
+    -fx-text-fill: #6d4c41;
+    /* Primary Brown */
     -fx-underline: false;
 }
 
 .footer-link:visited {
-    -fx-text-fill: #0d9488;
+    -fx-text-fill: #6d4c41;
 }
 
 .footer-link:hover {
@@ -157,5 +210,43 @@
 .copyright-text {
     -fx-font-size: 12px;
     -fx-font-weight: 500;
-    -fx-text-fill: rgba(148, 163, 184, 0.8); /* slate-400 with opacity */
+    -fx-text-fill: rgba(78, 52, 46, 0.8);
+    /* Pinkish slate */
+}
+
+/* Dialog Styling */
+.dialog-content {
+    -fx-background-color: #fdfbf7;
+    -fx-padding: 20px;
+}
+
+.dialog-pane .label {
+    -fx-text-fill: #3e2723;
+    -fx-font-size: 14px;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #6d4c41;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.fab-btn {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-background-radius: 25px;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.fab-btn:hover {
+    -fx-background-color: #c0392b;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }

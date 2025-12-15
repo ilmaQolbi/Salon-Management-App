@@ -8,7 +8,7 @@ public class Karyawan extends User {
     private double komisi;
 
     public Karyawan(String idUser, String nama, String Username, String password) {
-        super(idUser, nama, Username, password, "karyawan");
+        super(idUser, nama, Username, password, "karyawan", "Aktif");
         this.komisi = 0;
     }
 

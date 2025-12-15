@@ -15,10 +15,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
+import javafx.util.Duration;
 import javafx.stage.Stage;
+import javafx.fxml.Initializable;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
-public class RegisterController {
+public class RegisterController implements Initializable {
 
     @FXML
     private TextField tfEmail;
@@ -28,8 +35,36 @@ public class RegisterController {
     private PasswordField tfConfirmPassword;
     @FXML
     private TextField tfNama;
+    @FXML
+    private VBox brandingSection;
+    @FXML
+    private StackPane formSection;
 
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Animation: Fade In Branding Section
+        FadeTransition fadeBranding = new FadeTransition(Duration.seconds(1), brandingSection);
+        fadeBranding.setFromValue(0);
+        fadeBranding.setToValue(1);
+        fadeBranding.play();
+
+        // Animation: Slide In Branding (Up)
+        TranslateTransition slideBranding = new TranslateTransition(Duration.seconds(1), brandingSection);
+        slideBranding.setFromY(50);
+        slideBranding.setToY(0);
+        slideBranding.play();
+
+        // Animation: Fade In Form Section
+        FadeTransition fadeForm = new FadeTransition(Duration.seconds(1), formSection);
+        fadeForm.setFromValue(0);
+        fadeForm.setToValue(1);
+        fadeForm.play();
+
+        // Animation: Slide In Form (Right to Left)
+        TranslateTransition slideForm = new TranslateTransition(Duration.seconds(1), formSection);
+        slideForm.setFromX(50);
+        slideForm.setToX(0);
+        slideForm.play();
     }
 
     @FXML
@@ -39,7 +74,6 @@ public class RegisterController {
             String password = tfPassword.getText();
             String konfirmasiPassword = tfConfirmPassword.getText();
             String nama = tfNama.getText();
-
 
             // --- VALIDASI INPUT ---
             if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
@@ -61,21 +95,20 @@ public class RegisterController {
 
             // --- PERUBAHAN UTAMA DI SINI ---
 
-
             // Generate ID Berurutan (KRY001, dst)
             String userId = generateKaryawanId();
 
             // -------------------------------
 
             // Buat object User baru (Role otomatis 'Karyawan')
-            User newUser = new User(userId, nama, email, password, "Karyawan");
+            User newUser = new User(userId, nama, email, password, "Karyawan", "Pending");
 
             // Simpan ke database lewat DAO
             UserDAO.registrasiUser(newUser);
 
             // Tampilkan pesan sukses dengan info ID
             JOptionPane.showMessageDialog(null,
-                    "Registrasi berhasil!\nID Anda:  \nSilakan login.");
+                    "Registrasi berhasil!\nMohon Menunggu Persetujuan Admin");
 
             // Kembali ke halaman login
             kembaliLogin(event);
@@ -124,4 +157,3 @@ public class RegisterController {
         stage.setScene(scene);
     }
 }
-

@@ -13,6 +13,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
+import javafx.util.Duration;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane; // Import JOptionPane
 import java.io.IOException;
@@ -27,11 +32,39 @@ public class LoginController implements Initializable {
     private PasswordField tfPassword;
     @FXML
     private ComboBox<String> cbRole;
+    @FXML
+    private VBox brandingSection;
+    @FXML
+    private StackPane formSection;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Isi pilihan Role
         cbRole.setItems(FXCollections.observableArrayList("Admin", "Kasir", "Karyawan"));
+
+        // Animation: Fade In Branding Section
+        FadeTransition fadeBranding = new FadeTransition(Duration.seconds(1), brandingSection);
+        fadeBranding.setFromValue(0);
+        fadeBranding.setToValue(1);
+        fadeBranding.play();
+
+        // Animation: Slide In Branding (Up)
+        TranslateTransition slideBranding = new TranslateTransition(Duration.seconds(1), brandingSection);
+        slideBranding.setFromY(50);
+        slideBranding.setToY(0);
+        slideBranding.play();
+
+        // Animation: Fade In Form Section
+        FadeTransition fadeForm = new FadeTransition(Duration.seconds(1), formSection);
+        fadeForm.setFromValue(0);
+        fadeForm.setToValue(1);
+        fadeForm.play();
+
+        // Animation: Slide In Form (Right to Left)
+        TranslateTransition slideForm = new TranslateTransition(Duration.seconds(1), formSection);
+        slideForm.setFromX(50);
+        slideForm.setToX(0);
+        slideForm.play();
     }
 
     @FXML
@@ -52,18 +85,32 @@ public class LoginController implements Initializable {
             User user = UserDAO.validasiLogin(email, password, role);
 
             if (user != null) {
-                // LOGIN SUKSES
-                JOptionPane.showMessageDialog(null, "Login Berhasil! Selamat datang " + user.getNama());
 
-                // 3. Arahkan User sesuai Role
-                // Masuk ke Admin Dashboard
-                if (role.equalsIgnoreCase("Admin")) {
-                    keDashboard(event, "/View/AdminDashboard.fxml", "Admin Dashboard", user);
-                    // Masuk ke Kasir Dashboard
-                } else if (role.equalsIgnoreCase("Kasir")) {
-                    keDashboard(event, "/View/KasirDashboard.fxml", "Kasir Salon", user);
-                } else if (role.equalsIgnoreCase("Karyawan")) {
-                    keDashboard(event, "/View/KaryawanDashboard.fxml", "Karyawan Dashboard", user);
+                // Cek Status Approval
+                String status = user.getStatus();
+                if (status != null && status.equalsIgnoreCase("Menunggu Persetujuan")) {
+                    JOptionPane.showMessageDialog(null,
+                            "Akun Anda sedang menunggu persetujuan Admin.\nSilakan hubungi Admin.");
+                    return;
+                } else if (status != null && status.equalsIgnoreCase("Ditolak")) {
+                    JOptionPane.showMessageDialog(null, "Maaf, pendaftaran akun Anda ditolak oleh Admin.");
+                    return;
+                } else if (status == null || status.equalsIgnoreCase("Aktif")) {
+                    // LOGIN SUKSES
+                    JOptionPane.showMessageDialog(null, "Login Berhasil! Selamat datang " + user.getNama());
+
+                    // 3. Arahkan User sesuai Role
+                    // Masuk ke Admin Dashboard
+                    if (role.equalsIgnoreCase("Admin")) {
+                        keDashboard(event, "/View/AdminDashboard.fxml", "Admin Dashboard", user);
+                        // Masuk ke Kasir Dashboard
+                    } else if (role.equalsIgnoreCase("Kasir")) {
+                        keDashboard(event, "/View/KasirDashboard.fxml", "Kasir Salon", user);
+                    } else if (role.equalsIgnoreCase("Karyawan")) {
+                        keDashboard(event, "/View/KaryawanDashboard.fxml", "Karyawan Dashboard", user);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Status akun tidak valid: " + status);
                 }
 
             } else {
@@ -95,16 +142,28 @@ public class LoginController implements Initializable {
         }
     }
 
-    // --- HELPER UNTUK PINDAH SCENE ---
+    // --- PINDAH SCENE ---
     private void keDashboard(ActionEvent aksi, String lokasiFxml, String judul, User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(lokasiFxml));
             Parent root = loader.load();
 
+            // Kirim data User ke Controller tujuan
+            Object controller = loader.getController();
+            if (controller instanceof Controller.KasirController) {
+                ((Controller.KasirController) controller).setKasirData(user.getIdUser(), user.getNama());
+            } else if (controller instanceof Controller.KaryawanController) {
+                ((Controller.KaryawanController) controller).setUserData(user.getIdUser(), user.getNama());
+            } else if (controller instanceof Controller.AdminController) {
+                // ((Controller.AdminController) controller).setUserData(user); // Jika ada
+            }
+
             Stage stage = (Stage) ((Node) aksi.getSource()).getScene().getWindow();
+
+            // Ganti scene ke dashboard
             stage.setScene(new Scene(root));
             stage.setTitle(judul);
-            stage.centerOnScreen();
+
             stage.show();
 
         } catch (IOException e) {

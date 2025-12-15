@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.UUID;
-
 /**
  *
  * @author AERO
@@ -12,19 +10,21 @@ public class User {
     protected String email;
     protected String password;
     protected String role;
+    protected String status;
 
-    public User(String idUser, String nama, String email, String password, String role) {
+    public User(String idUser, String nama, String email, String password, String role, String status) {
         this.idUser = idUser;
         this.nama = nama;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.status = status;
 
     }
+
     public void SetUser(String idUser, String nama, String email, String password, String role) {
         this.idUser = idUser;
     }
-
 
     public String getNama() {
         return nama;
@@ -50,11 +50,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPass() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPass(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -65,5 +65,13 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-     
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

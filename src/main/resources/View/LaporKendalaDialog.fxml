@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="250.0" prefWidth="400.0" spacing="15.0" 
+      style="-fx-background-color: #fdfbf7;" 
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="Controller.LaporKendalaController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <children>
+        <Label text="⚠ Laporkan Kendala" style="-fx-text-fill: #e74c3c;">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        
+        <Label text="Jelaskan kendala yang Anda alami:" style="-fx-text-fill: #3e2723;">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        
+        <TextArea fx:id="txtIsiLaporan" prefHeight="100.0" promptText="Tulis detail kendala di sini..." wrapText="true" />
+        
+        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+            <children>
+                <Button fx:id="btnBatal" mnemonicParsing="false" onAction="#handleBatal" 
+                        style="-fx-background-color: #95a5a6; -fx-text-fill: white;" text="Batal" />
+                <Button fx:id="btnKirim" mnemonicParsing="false" onAction="#handleKirim" 
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;" text="Kirim Laporan" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

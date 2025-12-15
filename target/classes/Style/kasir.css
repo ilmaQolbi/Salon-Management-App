@@ -1,0 +1,303 @@
+/* General Dialog Styles */
+.dialog-content {
+    -fx-background-color: linear-gradient(to bottom, #efebe9, #d7ccc8);
+    -fx-padding: 25;
+    -fx-alignment: center;
+}
+
+.payment-method-content {
+    -fx-background-color: #efebe9;
+    -fx-padding: 20;
+    -fx-alignment: center;
+}
+
+.icon-label {
+    -fx-font-size: 48px;
+}
+
+.title-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3e2723;
+}
+
+.total-label-header {
+    -fx-font-size: 12px;
+    -fx-text-fill: #5d4037;
+}
+
+.total-value-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3e2723;
+}
+
+.instruction-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666;
+    -fx-padding: 10 0 0 0;
+}
+
+/* Button Styles */
+.btn-primary {
+    -fx-background-color: #5d4037;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.btn-payment-tunai {
+    -fx-background-color: linear-gradient(to right, #5d4037, #4e342e);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.btn-payment-tunai:hover {
+    -fx-background-color: linear-gradient(to right, #3e2723, #3e2723);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
+}
+
+.btn-payment-transfer {
+    -fx-background-color: linear-gradient(to right, #6d4c41, #5d4037);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.btn-payment-transfer:hover {
+    -fx-background-color: linear-gradient(to right, #4e342e, #4e342e);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
+}
+
+.btn-payment-ewallet {
+    -fx-background-color: linear-gradient(to right, #795548, #6d4c41);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.btn-payment-ewallet:hover {
+    -fx-background-color: linear-gradient(to right, #5d4037, #5d4037);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
+}
+
+/* Cash Payment Specifics */
+.cash-input-field {
+    -fx-font-size: 18px;
+    -fx-padding: 10;
+    -fx-background-radius: 8;
+    -fx-pref-width: 250;
+    -fx-alignment: center;
+}
+
+.kembalian-value {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #388e3c;
+}
+
+.kembalian-value-error {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c62828;
+}
+
+.kembalian-value-invalid {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c62828;
+}
+
+/* Transfer Payment Specifics */
+.separator-line {
+    -fx-text-fill: #90caf9;
+}
+
+.bank-name {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5d4037;
+}
+
+.rekening-value {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3e2723;
+    -fx-background-color: white;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+}
+
+.owner-name {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666;
+    -fx-font-style: italic;
+}
+
+.warning-instruction {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6d4c41;
+    -fx-padding: 10 0 0 0;
+}
+
+/* E-Wallet Specifics */
+.qr-image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 3);
+}
+
+.qr-placeholder {
+    -fx-font-size: 24px;
+    -fx-background-color: white;
+    -fx-padding: 60;
+    -fx-background-radius: 8;
+}
+
+.supported-wallets {
+    -fx-font-size: 10px;
+    -fx-text-fill: #6d4c41;
+}
+
+/* Receipt Dialog */
+.receipt-content {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-width: 2;
+    -fx-border-style: dashed;
+    -fx-padding: 20;
+    -fx-alignment: center;
+}
+
+.store-name {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5d4037;
+}
+
+.store-address {
+    -fx-font-size: 10px;
+    -fx-text-fill: #999;
+}
+
+.receipt-separator {
+    -fx-text-fill: #ccc;
+    -fx-font-size: 10px;
+}
+
+.receipt-info {
+    -fx-font-size: 11px;
+    -fx-text-fill: #666;
+}
+
+.receipt-item-name {
+    -fx-font-size: 11px;
+}
+
+.receipt-item-price {
+    -fx-font-size: 10px;
+    -fx-text-fill: #666;
+}
+
+.receipt-total-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.receipt-total-value {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3e2723;
+}
+
+.receipt-method {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6d4c41;
+}
+
+.receipt-thankyou {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5d4037;
+}
+
+.receipt-visit-again {
+    -fx-font-size: 10px;
+    -fx-text-fill: #999;
+    -fx-font-style: italic;
+}
+
+/* FXML Styles */
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #5d4037, #3e2723);
+}
+
+.btn-logout {
+    -fx-background-color: #8d6e63;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.btn-logout:hover {
+    -fx-background-color: #6d4c41;
+}
+
+.main-content {
+    -fx-background-color: #efebe9;
+}
+
+.cart-container {
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+    -fx-background-radius: 8;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, #00000020, 10, 0, 0, 3);
+}
+
+.btn-process {
+    -fx-background-color: linear-gradient(to right, #6d4c41, #4e342e);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.btn-process:hover {
+    -fx-background-color: linear-gradient(to right, #5d4037, #3e2723);
+}
+
+.btn-reset {
+    -fx-background-color: #d7ccc8;
+    -fx-text-fill: #3e2723;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.btn-reset:hover {
+    -fx-background-color: #bcaaa4;
+}
+
+/* Floating Action Button */
+.fab-btn {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-background-radius: 50%;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
+    -fx-cursor: hand;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-alignment: center;
+}
+
+.fab-btn:hover {
+    -fx-background-color: #c0392b;
+}

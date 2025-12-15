@@ -1,4 +1,5 @@
 package Model;
+
 /**
  *
  * @author Ilma
@@ -9,7 +10,7 @@ public class Kasir extends User {
     private List<Transaksi> daftarTransaksi;
 
     public Kasir(String idUser, String nama, String email, String password) {
-        super(idUser, nama, email, password, "kasir");
+        super(idUser, nama, email, password, "kasir", "Aktif");
     }
 
     public Transaksi buatTransaksi(Pelanggan pelanggan, List<Layanan> layanan, String metodePembayaran) {

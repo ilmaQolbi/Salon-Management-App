@@ -8,10 +8,13 @@ import javafx.stage.Stage;
  *
  * @author AERO
  */
-public class Main extends Application{
+public class Main extends Application {
 
-   @Override
+    @Override
     public void start(Stage stage) throws Exception {
+        // Pastikan kolom status ada di tabel detail_transaksi
+        DAO.DatabaseManager.ensureStatusColumn();
+
         Parent root = FXMLLoader.load(getClass().getResource("/View/Login.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);

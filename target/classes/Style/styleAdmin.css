@@ -1,0 +1,105 @@
+.sidebar {
+    -fx-background-color: linear-gradient(to bottom, #5d4037, #3e2723);
+    /* Brown-700 ke Brown-900 (More Elegant) */
+}
+
+/* Judul Sidebar */
+.sidebar-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);
+}
+
+/* Tombol Menu Sidebar */
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-alignment: center-left;
+    -fx-padding: 12px 20px;
+    -fx-cursor: hand;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-border-color: transparent transparent transparent white;
+    -fx-border-width: 0 0 0 4;
+}
+
+/* Tombol Logout */
+.logout-button {
+    -fx-background-color: #8d6e63;
+    /* Brown-400 */
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: #5d4037;
+    /* Brown-700 */
+}
+
+/* Area Konten Utama */
+.content-area {
+    -fx-background-color: #f8fafc;
+    /* Slate-50 - Abu sangat muda */
+}
+
+/* Judul Halaman */
+.page-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #3e2723;
+    /* Very Dark Brown */
+}
+
+/* Tombol Aksi (Tambah, Simpan, dll) */
+.action-button-success {
+    -fx-background-color: #5d4037;
+    /* Brown-700 */
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+
+.action-button-success:hover {
+    -fx-background-color: #4e342e;
+    /* Brown-800 */
+}
+
+.action-button-danger {
+    -fx-background-color: #8d6e63;
+    /* Brown-400 */
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+
+.action-button-danger:hover {
+    -fx-background-color: #6d4c41;
+    /* Brown-600 */
+}
+
+.action-button-warning {
+    -fx-background-color: #d7ccc8;
+    /* Light Brown */
+    -fx-text-fill: #3e2723;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+
+.action-button-warning:hover {
+    -fx-background-color: #bcaaa4;
+    /* Medium Light Brown */
+}
