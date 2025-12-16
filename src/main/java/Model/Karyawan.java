@@ -5,7 +5,6 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class Karyawan extends User {
-    private List<Jadwal> jadwalKerja;
     private List<Pelanggan> daftarPelanggan;
     private double komisi;
 
@@ -65,10 +64,6 @@ public class Karyawan extends User {
     }
 
     // ========== INSTANCE METHODS ==========
-
-    public List<Jadwal> lihatJadwal() {
-        return jadwalKerja;
-    }
 
     public List<Pelanggan> lihatDaftarPelanggan() {
         return daftarPelanggan;

@@ -9,9 +9,7 @@ package Model;
  *
  * @author Ilma
  */
-import java.time.LocalTime;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 public class Antrian {

@@ -30,7 +30,7 @@ import javafx.beans.property.SimpleObjectProperty;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class AdminController {
 
-    // --- 1. UI ELEMENTS (FXML) ---
+    // --- UI (FXML) ---
 
     // Navigasi Sidebar
     @FXML
@@ -99,12 +99,12 @@ public class AdminController {
     @FXML
     private TableColumn<LaporanModel, Button> colLaporAksi;
 
-    // --- DATA LIST ---
+    //DATA LIST
     private ObservableList DaftarKaryawan = FXCollections.observableArrayList();
     private ObservableList DaftarLayanan = FXCollections.observableArrayList();
     private ObservableList<LaporanModel> DaftarLaporan = FXCollections.observableArrayList();
 
-    // --- 2. INISIALISASI (JALAN SAAT APLIKASI DIBUKA) ---
+    // INISIALISASI (SAAT APLIKASI DIBUKA)
     @FXML
     public void initialize() {
         // A. Setup Karyawan
@@ -118,12 +118,10 @@ public class AdminController {
         colRole.setCellValueFactory(new PropertyValueFactory("role"));
         colStatus.setCellValueFactory(new PropertyValueFactory("status"));
 
-        // Setup kolom Status dengan tombol inline untuk Menunggu persetujuan
         setupKolomStatus();
 
         tableKaryawan.setItems(DaftarKaryawan);
 
-        // Add Selection Listener to populate fields
         tableKaryawan.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 User user = (User) newSelection;
@@ -135,14 +133,14 @@ public class AdminController {
             }
         });
 
-        // B. Setup Layanan
+
         colIdLayanan.setCellValueFactory(new PropertyValueFactory("idLayanan"));
         colNamaLayanan.setCellValueFactory(new PropertyValueFactory("namaLayanan"));
         colHarga.setCellValueFactory(new PropertyValueFactory("harga"));
         colDurasi.setCellValueFactory(new PropertyValueFactory("durasi"));
         tableLayanan.setItems(DaftarLayanan);
 
-        // Add Selection Listener untuk auto-fill form layanan
+
         tableLayanan.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 Layanan layanan = (Layanan) newSelection;
@@ -409,7 +407,7 @@ public class AdminController {
         }
     }
 
-    // Opsional: Tambahkan logika hapus layanan jika tombolnya ada
+    // untuk menghapus layanan
     @FXML
     void aksiHapusLayanan(ActionEvent event) {
         Layanan selected = (Layanan) tableLayanan.getSelectionModel().getSelectedItem();
