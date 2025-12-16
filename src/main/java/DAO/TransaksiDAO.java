@@ -23,7 +23,7 @@ public class TransaksiDAO {
         int generatedId = -1;
 
         try {
-            conn = DatabaseManager.connect();
+            conn = DatabaseManager.koneksi();
             // Matikan auto-commit untuk memulai transaksi manual
             conn.setAutoCommit(false);
 

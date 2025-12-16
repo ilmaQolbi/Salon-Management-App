@@ -89,7 +89,7 @@ public class LaporKendalaController {
         }
 
         String query = "INSERT INTO laporan_kendala (id_user, isi_laporan, tanggal, status) VALUES (?, ?, NOW(), 'Pending')";
-        int result = DatabaseManager.executeUpdate(query, currentUserId, isiLaporan.trim());
+        int result = DatabaseManager.eksekusiUpdate(query, currentUserId, isiLaporan.trim());
 
         if (result > 0) {
             tampilkanPeringatan(Alert.AlertType.INFORMATION, "Terkirim", "Laporan kendala berhasil dikirim!");

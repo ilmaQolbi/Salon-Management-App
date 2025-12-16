@@ -1,0 +1,330 @@
+/* ============================================
+   PROSES PEMBAYARAN - TEMA COKELAT ELEGANT
+   Selaras dengan styleAdmin.css dan kasir.css
+   ============================================ */
+
+* {
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+.root {
+    -fx-background-color: transparent;
+}
+
+/* ============================================
+   CONTAINER - Premium Card dengan Tema Cokelat
+   ============================================ */
+.payment-method-content,
+.dialog-content {
+    -fx-background-color: linear-gradient(to bottom, #efebe9, #d7ccc8);
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(62, 39, 35, 0.25), 25, 0, 0, 8);
+    -fx-padding: 35;
+    -fx-border-color: #bcaaa4;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+}
+
+/* ============================================
+   TYPOGRAPHY - Mengikuti Palet Cokelat
+   ============================================ */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3e2723;
+    /* Very Dark Brown */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 1);
+}
+
+.instruction-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #5d4037;
+    /* Brown-700 */
+    -fx-padding: 5 0 15 0;
+}
+
+.icon-label {
+    -fx-font-size: 52px;
+    -fx-effect: dropshadow(gaussian, rgba(93, 64, 55, 0.3), 8, 0, 0, 3);
+}
+
+.total-label-header {
+    -fx-font-size: 13px;
+    -fx-text-fill: #8d6e63;
+    /* Brown-400 */
+    -fx-font-weight: bold;
+    -fx-text-transform: uppercase;
+    -fx-padding: 10 0 0 0;
+}
+
+.total-value-label {
+    -fx-font-size: 38px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3e2723;
+    /* Very Dark Brown */
+    -fx-effect: dropshadow(gaussian, rgba(62, 39, 35, 0.15), 8, 0, 0, 2);
+}
+
+/* ============================================
+   BUTTONS - Gradient Cokelat Premium
+   ============================================ */
+.button {
+    -fx-cursor: hand;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 12 24;
+}
+
+.btn-primary {
+    -fx-background-color: linear-gradient(to right, #5d4037, #4e342e);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(62, 39, 35, 0.4), 10, 0, 0, 3);
+}
+
+.btn-primary:hover {
+    -fx-background-color: linear-gradient(to right, #4e342e, #3e2723);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.btn-primary:pressed {
+    -fx-background-color: #3e2723;
+}
+
+.btn-reset {
+    -fx-background-color: #d7ccc8;
+    -fx-text-fill: #5d4037;
+    -fx-border-color: #bcaaa4;
+    -fx-border-radius: 10;
+}
+
+.btn-reset:hover {
+    -fx-background-color: #bcaaa4;
+    -fx-text-fill: #3e2723;
+}
+
+/* ============================================
+   PAYMENT METHOD BUTTONS - Tema Cokelat Elegant
+   ============================================ */
+.btn-payment-tunai,
+.btn-payment-transfer,
+.btn-payment-ewallet {
+    -fx-background-color: white;
+    -fx-text-fill: #3e2723;
+    -fx-border-color: #bcaaa4;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 18 25;
+    -fx-font-size: 15px;
+    -fx-graphic-text-gap: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 5, 0, 0, 2);
+}
+
+/* TUNAI - Gradient Cokelat Gelap */
+.btn-payment-tunai:hover {
+    -fx-background-color: linear-gradient(to right, #5d4037, #4e342e);
+    -fx-border-color: #3e2723;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(62, 39, 35, 0.4), 12, 0, 0, 4);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* TRANSFER - Gradient Cokelat Medium */
+.btn-payment-transfer:hover {
+    -fx-background-color: linear-gradient(to right, #6d4c41, #5d4037);
+    -fx-border-color: #4e342e;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(109, 76, 65, 0.4), 12, 0, 0, 4);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* E-WALLET - Gradient Cokelat Terang */
+.btn-payment-ewallet:hover {
+    -fx-background-color: linear-gradient(to right, #795548, #6d4c41);
+    -fx-border-color: #5d4037;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(121, 85, 72, 0.4), 12, 0, 0, 4);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* ============================================
+   INPUT FIELDS - Clean dengan Aksen Cokelat
+   ============================================ */
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #bcaaa4;
+    -fx-border-radius: 10;
+    -fx-padding: 14;
+    -fx-font-size: 16px;
+    -fx-text-fill: #3e2723;
+}
+
+.text-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #5d4037;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(93, 64, 55, 0.2), 8, 0, 0, 2);
+}
+
+.cash-input-field {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+    -fx-text-fill: #3e2723;
+}
+
+/* ============================================
+   LABELS - Kembalian & Info
+   ============================================ */
+.separator-line {
+    -fx-text-fill: #bcaaa4;
+    -fx-font-size: 10px;
+    -fx-padding: 10 0;
+}
+
+.kembalian-value {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2e7d32;
+    /* Green untuk sukses */
+    -fx-effect: dropshadow(gaussian, rgba(46, 125, 50, 0.3), 8, 0, 0, 2);
+}
+
+.kembalian-value-error {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c62828;
+    /* Red untuk error */
+}
+
+.kembalian-value-invalid {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ef6c00;
+    /* Orange untuk warning */
+}
+
+/* ============================================
+   BANK & TRANSFER INFO
+   ============================================ */
+.bank-name {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3e2723;
+    -fx-background-color: #d7ccc8;
+    -fx-padding: 12 28;
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0, 0, 2);
+}
+
+.rekening-value {
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3e2723;
+    -fx-font-family: 'Consolas', monospace;
+    -fx-background-color: #fff8e1;
+    /* Amber-50 - Yellow note */
+    -fx-background-radius: 8;
+    -fx-padding: 10 25;
+    -fx-border-color: #ffe082;
+    -fx-border-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.08), 6, 0, 0, 2);
+}
+
+.owner-name {
+    -fx-font-style: italic;
+    -fx-text-fill: #6d4c41;
+    -fx-font-size: 14px;
+}
+
+.warning-instruction {
+    -fx-text-fill: #bf360c;
+    /* Deep Orange */
+    -fx-font-size: 12px;
+    -fx-padding: 8 15;
+    -fx-background-color: #fff3e0;
+    -fx-background-radius: 6;
+    -fx-border-color: #ffccbc;
+    -fx-border-radius: 6;
+}
+
+/* ============================================
+   RECEIPT - Struk Elegant
+   ============================================ */
+.receipt-content {
+    -fx-background-color: #fffdf7;
+    /* Warm white */
+    -fx-background-radius: 0;
+    -fx-effect: dropshadow(gaussian, rgba(62, 39, 35, 0.25), 20, 0, 0, 6);
+    -fx-padding: 40;
+    -fx-border-color: #e0d6cc;
+    -fx-border-width: 1;
+}
+
+.store-name {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3e2723;
+    -fx-font-family: 'Georgia', serif;
+}
+
+.store-address {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6d4c41;
+    -fx-font-family: 'Courier New', monospace;
+}
+
+.receipt-separator {
+    -fx-text-fill: #bcaaa4;
+    -fx-font-family: 'Courier New', monospace;
+    -fx-font-size: 10px;
+}
+
+.receipt-info,
+.receipt-item-name,
+.receipt-item-price,
+.receipt-method {
+    -fx-font-family: 'Courier New', monospace;
+    -fx-text-fill: #3e2723;
+    -fx-font-size: 13px;
+}
+
+.receipt-total-label {
+    -fx-font-family: 'Courier New', monospace;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3e2723;
+}
+
+.receipt-total-value {
+    -fx-font-family: 'Courier New', monospace;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3e2723;
+}
+
+.receipt-thankyou,
+.receipt-visit-again {
+    -fx-font-family: 'Georgia', serif;
+    -fx-text-fill: #5d4037;
+    -fx-font-size: 14px;
+}
+
+/* ============================================
+   QR CODE & E-WALLET
+   ============================================ */
+.qr-image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 12, 0, 0, 4);
+}
+
+.supported-wallets {
+    -fx-font-size: 11px;
+    -fx-text-fill: #8d6e63;
+    -fx-padding: 8 0;
+}

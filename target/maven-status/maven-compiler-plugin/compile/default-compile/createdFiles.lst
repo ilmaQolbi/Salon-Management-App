@@ -6,7 +6,6 @@ Main.class
 Model\Admin.class
 DAO\UserDAO.class
 Model\Kasir.class
-DAO\BaseDAO.class
 Model\Pelanggan.class
 Model\Antrian.class
 Model\User.class

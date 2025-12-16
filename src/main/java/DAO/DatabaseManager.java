@@ -13,14 +13,14 @@ public class DatabaseManager {
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
-    public static Connection connect() throws SQLException {
+    public static Connection koneksi() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
     // Method untuk mengambil data (SELECT)
-    public static ResultSet executeQuery(String query) {
+    public static ResultSet eksekusiQuery(String query) {
         try {
-            Connection conn = connect();
+            Connection conn = koneksi();
             Statement stmt = conn.createStatement();
             return stmt.executeQuery(query);
         } catch (SQLException e) {
@@ -30,8 +30,8 @@ public class DatabaseManager {
     }
 
     // Method untuk tambah/hapus/edit (INSERT, UPDATE, DELETE)
-    public static int executeUpdate(String query, Object... params) {
-        try (Connection conn = connect();
+    public static int eksekusiUpdate(String query, Object... params) {
+        try (Connection conn = koneksi();
                 PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             for (int i = 0; i < params.length; i++) {
@@ -45,9 +45,30 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     * Method untuk mengambil data (SELECT) dengan parameter
+     * 
+     * @param query  SQL query dengan placeholder ?
+     * @param params parameter untuk query
+     * @return ResultSet hasil query
+     */
+    public static ResultSet eksekusiQueryDenganParam(String query, Object... params) {
+        try {
+            Connection conn = koneksi();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            for (int i = 0; i < params.length; i++) {
+                pstmt.setObject(i + 1, params[i]);
+            }
+            return pstmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     // Method untuk memastikan kolom ada di tabel antrian_Pelanggan
-    public static void ensureStatusColumn() {
-        try (Connection conn = connect();
+    public static void pastikanKolomStatus() {
+        try (Connection conn = koneksi();
                 Statement stmt = conn.createStatement()) {
 
             // Coba tambahkan kolom status jika belum ada

@@ -1,13 +1,11 @@
 package Controller;
 
 import DAO.UserDAO;
-import DAO.DatabaseManager;
+import Model.Admin;
 import Model.User;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -95,8 +93,8 @@ public class RegisterController implements Initializable {
 
             // --- PERUBAHAN UTAMA DI SINI ---
 
-            // Generate ID Berurutan (KRY001, dst)
-            String userId = generateKaryawanId();
+            // Generate ID Berurutan menggunakan Model Admin
+            String userId = Admin.generateUserId("Karyawan");
 
             // -------------------------------
 
@@ -117,30 +115,6 @@ public class RegisterController implements Initializable {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Terjadi kesalahan: " + e.getMessage());
         }
-    }
-
-    // --- METHOD GENERATOR ID BARU ---
-    private String generateKaryawanId() {
-        String prefix = "KRY";
-        // Cari ID terakhir KRY...
-        String query = "SELECT idUser FROM users WHERE idUser LIKE 'KRY%' ORDER BY idUser DESC LIMIT 1";
-
-        ResultSet rs = DatabaseManager.executeQuery(query);
-        int nextNumber = 1;
-
-        try {
-            if (rs != null && rs.next()) {
-                String lastId = rs.getString("idUser");
-                if (lastId.length() >= 3) {
-                    String numberPart = lastId.substring(3);
-                    nextNumber = Integer.parseInt(numberPart) + 1;
-                }
-            }
-        } catch (SQLException | NumberFormatException e) {
-            e.printStackTrace();
-        }
-
-        return String.format("%s%03d", prefix, nextNumber);
     }
 
     @FXML

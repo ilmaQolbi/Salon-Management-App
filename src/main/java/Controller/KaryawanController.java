@@ -1,8 +1,9 @@
 package Controller;
 
-import DAO.DatabaseManager;
+import DAO.PekerjaanDAO;
 import Model.PekerjaanModel;
 import Model.KomisiModel;
+import Model.Karyawan;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -20,10 +21,6 @@ import javafx.stage.Stage;
 
 import javax.swing.JOptionPane;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 public class KaryawanController {
 
@@ -97,9 +94,8 @@ public class KaryawanController {
     private ObservableList<KomisiModel> listKomisi = FXCollections.observableArrayList();
     private String currentUserId;
 
-    private static final double Komisi = 0.05; // 5% komisi per layanan
-    private static final double GAJI_POKOK = 4800000;
-    private NumberFormat rupiah = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+    // Konstanta dipindahkan ke Model Karyawan
+    // Gunakan Karyawan.PERSENTASE_KOMISI dan Karyawan.GAJI_POKOK
 
     @FXML
     public void initialize() {
@@ -154,7 +150,8 @@ public class KaryawanController {
         colKomisiLayanan.setCellValueFactory(new PropertyValueFactory<>("namaLayanan"));
         colKomisiJumlah.setCellValueFactory(new PropertyValueFactory<>("jumlah"));
         colKomisiNilai.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(rupiah.format(cellData.getValue().getNilaiKomisi()));
+            // Gunakan method dari Model Karyawan
+            return new SimpleStringProperty(Karyawan.formatRupiah(cellData.getValue().getNilaiKomisi()));
         });
         tableKomisi.setItems(listKomisi);
     }
@@ -162,76 +159,20 @@ public class KaryawanController {
     // --- LOAD DATA ---
     private void muatDataPekerjaan() {
         listPekerjaan.clear();
-        int pendingCount = 0;
-        int doneCount = 0;
-        double komisiHariIni = 0;
 
-        // Filter berdasarkan id_karyawan = ID Karyawan yang login
-        String query = "SELECT ap.id_antrian, t.id_transaksi, t.nama_pelanggan, l.nama_layanan, l.harga, t.tanggal, ap.status "
-                +
-                "FROM antrian_Pelanggan ap " +
-                "JOIN transaksi t ON ap.id_transaksi = t.id_transaksi " +
-                "JOIN layanan l ON ap.id_layanan = l.id_layanan " +
-                "WHERE ap.id_karyawan = '" + currentUserId + "' " +
-                "ORDER BY CASE WHEN ap.status = 'Selesai' THEN 1 ELSE 0 END, t.tanggal DESC " +
-                "LIMIT 50";
+        // Gunakan DAO untuk mengambil data dan statistik
+        listPekerjaan.addAll(PekerjaanDAO.getPekerjaanByKaryawan(currentUserId));
+        double[] stats = PekerjaanDAO.hitungStatistikPekerjaan(listPekerjaan, currentUserId);
 
-        ResultSet rs = DatabaseManager.executeQuery(query);
-        try {
-            while (rs != null && rs.next()) {
-                String status = rs.getString("status");
-                if (status == null)
-                    status = "Menunggu";
-                double harga = rs.getDouble("harga");
-
-                listPekerjaan.add(new PekerjaanModel(
-                        rs.getInt("id_antrian"),
-                        rs.getInt("id_transaksi"),
-                        rs.getString("nama_pelanggan"),
-                        rs.getString("nama_layanan"),
-                        rs.getString("tanggal"),
-                        status));
-
-                if ("Menunggu".equalsIgnoreCase(status) || "Menunggu Persetujuan".equalsIgnoreCase(status)) {
-                    pendingCount++;
-                } else if ("Selesai".equalsIgnoreCase(status)) {
-                    doneCount++;
-                    komisiHariIni += harga * Komisi;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        lblPending.setText(String.valueOf(pendingCount));
-        lblSelesai.setText(String.valueOf(doneCount));
-        lblKomisiHariIni.setText(rupiah.format(komisiHariIni));
+        lblPending.setText(String.valueOf((int) stats[0]));
+        lblSelesai.setText(String.valueOf((int) stats[1]));
+        lblKomisiHariIni.setText(Karyawan.formatRupiah(stats[2]));
     }
 
     private void muatDataRiwayat() {
         listRiwayat.clear();
-        // Filter berdasarkan id_karyawan = ID Karyawan yang login
-        String query = "SELECT ap.id_antrian, t.id_transaksi, t.nama_pelanggan, l.nama_layanan, t.tanggal, ap.status " +
-                "FROM antrian_Pelanggan ap " +
-                "JOIN transaksi t ON ap.id_transaksi = t.id_transaksi " +
-                "JOIN layanan l ON ap.id_layanan = l.id_layanan " +
-                "WHERE ap.status = 'Selesai' AND ap.id_karyawan = '" + currentUserId + "' " +
-                "ORDER BY t.tanggal DESC LIMIT 100";
-
-        ResultSet rs = DatabaseManager.executeQuery(query);
-        try {
-            while (rs != null && rs.next()) {
-                listRiwayat.add(new PekerjaanModel(
-                        rs.getInt("id_antrian"),
-                        rs.getInt("id_transaksi"),
-                        rs.getString("nama_pelanggan"),
-                        rs.getString("nama_layanan"),
-                        rs.getString("tanggal"),
-                        rs.getString("status")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // Gunakan DAO untuk mengambil data
+        listRiwayat.addAll(PekerjaanDAO.getRiwayatPekerjaan(currentUserId));
     }
 
     private void muatDataKomisi() {
@@ -239,40 +180,23 @@ public class KaryawanController {
         double totalKomisi = 0;
         int totalPekerjaan = 0;
 
-        // Filter berdasarkan id_karyawan = ID Karyawan yang login DAN Bulan Ini
-        String query = "SELECT l.nama_layanan, COUNT(*) as jumlah, SUM(l.harga) * " + Komisi + " as komisi " +
-                "FROM antrian_Pelanggan ap " +
-                "JOIN transaksi t ON ap.id_transaksi = t.id_transaksi " +
-                "JOIN layanan l ON ap.id_layanan = l.id_layanan " +
-                "WHERE ap.status = 'Selesai' " +
-                "AND ap.id_karyawan = '" + currentUserId + "' " +
-                "AND MONTH(t.tanggal) = MONTH(CURRENT_DATE()) " +
-                "AND YEAR(t.tanggal) = YEAR(CURRENT_DATE()) " +
-                "GROUP BY l.nama_layanan " +
-                "ORDER BY komisi DESC";
+        // Gunakan DAO untuk mengambil data komisi
+        java.util.List<KomisiModel> komisiList = PekerjaanDAO.getKomisiBulanIni(currentUserId);
+        listKomisi.addAll(komisiList);
 
-        ResultSet rs = DatabaseManager.executeQuery(query);
-        try {
-            while (rs != null && rs.next()) {
-                int jumlah = rs.getInt("jumlah");
-                double komisi = rs.getDouble("komisi");
-                listKomisi.add(new KomisiModel(
-                        rs.getString("nama_layanan"),
-                        jumlah,
-                        komisi));
-                totalKomisi += komisi;
-                totalPekerjaan += jumlah;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        // Hitung total dari list
+        for (KomisiModel km : komisiList) {
+            totalKomisi += km.getNilaiKomisi();
+            totalPekerjaan += km.getJumlah();
         }
 
-        lblTotalKomisi.setText(rupiah.format(totalKomisi));
+        // Gunakan method dari Model Karyawan
+        lblTotalKomisi.setText(Karyawan.formatRupiah(totalKomisi));
         lblTotalPekerjaan.setText(String.valueOf(totalPekerjaan));
 
-        // Hitung Estimasi Gaji (Pokok + Komisi)
-        double estimasiGaji = GAJI_POKOK + totalKomisi;
-        lblEstimasiGaji.setText(rupiah.format(estimasiGaji));
+        // Hitung Estimasi Gaji menggunakan method dari Model Karyawan
+        double estimasiGaji = Karyawan.hitungEstimasiGaji(totalKomisi);
+        lblEstimasiGaji.setText(Karyawan.formatRupiah(estimasiGaji));
     }
 
     // --- VIEW SWITCHING ---
@@ -308,10 +232,10 @@ public class KaryawanController {
                 "Konfirmasi", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            String query = "UPDATE antrian_Pelanggan SET status = 'Selesai' WHERE id_antrian = ?";
-            int res = DatabaseManager.executeUpdate(query, data.getIdDetail());
+            // Gunakan DAO untuk update status
+            boolean success = PekerjaanDAO.selesaikanPekerjaan(data.getIdDetail());
 
-            if (res > 0) {
+            if (success) {
                 JOptionPane.showMessageDialog(null, "Pekerjaan Selesai!");
                 muatDataPekerjaan();
             } else {

@@ -301,3 +301,17 @@
 .fab-btn:hover {
     -fx-background-color: #c0392b;
 }
+
+/* Dialog Pane Styles */
+.dialog-pane-payment {
+    -fx-background-color: #efebe9;
+}
+
+.karyawan-dialog-content {
+    -fx-background-color: #fdfbf7;
+    -fx-padding: 20;
+}
+
+.karyawan-dialog-pane {
+    -fx-background-color: #fdfbf7;
+}

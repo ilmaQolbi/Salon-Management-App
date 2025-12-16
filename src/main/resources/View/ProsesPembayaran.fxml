@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<!-- 
+    ProsesPembayaran.fxml
+    Menggabungkan semua tahap pembayaran dalam satu file.
+    Gunakan StackPane untuk switch antar view dengan fx:id visibility.
+-->
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="Controller.ProsesPembayaranController"
+           stylesheets="@../Style/pembayaran.css">
+    
+    <!-- ======================== -->
+    <!-- VIEW 1: Pilih Metode Pembayaran -->
+    <!-- ======================== -->
+    <VBox fx:id="viewPilihMetode" styleClass="payment-method-content" 
+          spacing="15" alignment="CENTER" visible="true">
+        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+        
+        <Label fx:id="lblTotalMetode" styleClass="title-label" text="Total: Rp 0"/>
+        <Label text="Pilih metode pembayaran:" styleClass="instruction-label"/>
+        
+        <Button fx:id="btnTunai" text="💵  TUNAI (Uang Tunai)" 
+                prefWidth="280" prefHeight="50" styleClass="btn-payment-tunai"
+                onAction="#handlePilihTunai"/>
+        <Button fx:id="btnTransfer" text="🏦  TRANSFER Bank" 
+                prefWidth="280" prefHeight="50" styleClass="btn-payment-transfer"
+                onAction="#handlePilihTransfer"/>
+        <Button fx:id="btnEWallet" text="📱  E-WALLET (OVO/GoPay/DANA)" 
+                prefWidth="280" prefHeight="50" styleClass="btn-payment-ewallet"
+                onAction="#handlePilihEWallet"/>
+        
+        <Button text="Batal" onAction="#handleBatal" styleClass="btn-reset"/>
+    </VBox>
+    
+    <!-- ======================== -->
+    <!-- VIEW 2: Pembayaran Tunai -->
+    <!-- ======================== -->
+    <VBox fx:id="viewTunai" styleClass="dialog-content" 
+          spacing="15" alignment="CENTER" prefWidth="380" visible="false">
+        <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+        
+        <Label text="💵" styleClass="icon-label"/>
+        <Label text="PEMBAYARAN TUNAI" styleClass="title-label"/>
+        
+        <Label text="Total yang harus dibayar:" styleClass="total-label-header"/>
+        <Label fx:id="lblTotalTunai" styleClass="total-value-label" text="Rp 0"/>
+        
+        <Label text="─────────────────────────" styleClass="separator-line"/>
+        
+        <Label text="Masukkan jumlah uang:" styleClass="instruction-label"/>
+        <TextField fx:id="txtUangDibayar" styleClass="cash-input-field" 
+                   promptText="Contoh: 100000" alignment="CENTER"/>
+        
+        <Label text="Kembalian:" styleClass="instruction-label"/>
+        <Label fx:id="lblKembalian" styleClass="kembalian-value" text="Rp 0"/>
+        
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="← Kembali" onAction="#handleKembali" styleClass="btn-reset"/>
+            <Button fx:id="btnProsesTunai" text="Proses Pembayaran" 
+                    onAction="#handleProsesTunai" styleClass="btn-primary"/>
+        </HBox>
+    </VBox>
+    
+    <!-- ======================== -->
+    <!-- VIEW 3: Pembayaran Transfer -->
+    <!-- ======================== -->
+    <VBox fx:id="viewTransfer" styleClass="dialog-content" 
+          spacing="15" alignment="CENTER" prefWidth="380" visible="false">
+        <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+        
+        <Label text="🏦" styleClass="icon-label"/>
+        <Label text="TRANSFER BANK" styleClass="title-label"/>
+        
+        <Label text="Total Pembayaran:" styleClass="total-label-header"/>
+        <Label fx:id="lblTotalTransfer" styleClass="total-value-label" text="Rp 0"/>
+        
+        <Label text="─────────────────────────" styleClass="separator-line"/>
+        
+        <Label text="Transfer ke rekening:" styleClass="instruction-label"/>
+        <HBox alignment="CENTER" spacing="10">
+            <Label text="🏛️ Bank BNI" styleClass="bank-name"/>
+        </HBox>
+        
+        <Label text="Nomor Rekening:" styleClass="instruction-label"/>
+        <Label text="0234503418" styleClass="rekening-value"/>
+        <Label text="a.n. Bob Nolen Barnabas Munthe" styleClass="owner-name"/>
+        
+        <Label text="⚠️Pastikan jumlah transfer sesuai⚠️" styleClass="warning-instruction"/>
+        
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="← Kembali" onAction="#handleKembali" styleClass="btn-reset"/>
+            <Button text="Konfirmasi Sudah Transfer" onAction="#handleKonfirmasiTransfer" styleClass="btn-primary"/>
+        </HBox>
+    </VBox>
+    
+    <!-- ======================== -->
+    <!-- VIEW 4: Pembayaran E-Wallet -->
+    <!-- ======================== -->
+    <VBox fx:id="viewEWallet" styleClass="dialog-content" 
+          spacing="15" alignment="CENTER" prefWidth="380" visible="false">
+        <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+        
+        <Label text="📱" styleClass="icon-label"/>
+        <Label text="PEMBAYARAN E-WALLET" styleClass="title-label"/>
+        
+        <Label text="Total Pembayaran:" styleClass="total-label-header"/>
+        <Label fx:id="lblTotalEWallet" styleClass="total-value-label" text="Rp 0"/>
+        
+        <Label text="Scan QR Code untuk membayar:" styleClass="instruction-label"/>
+        <ImageView fx:id="qrImageView" fitWidth="180" fitHeight="180" preserveRatio="true" styleClass="qr-image-view"/>
+        
+        <Label text="Didukung: OVO • GoPay • DANA • ShopeePay • LinkAja" styleClass="supported-wallets"/>
+        <Label text="⚠️ Tekan konfirmasi setelah pembayaran berhasil" styleClass="warning-instruction"/>
+        
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="← Kembali" onAction="#handleKembali" styleClass="btn-reset"/>
+            <Button text="Konfirmasi Pembayaran" onAction="#handleKonfirmasiEWallet" styleClass="btn-primary"/>
+        </HBox>
+    </VBox>
+    
+    <!-- ======================== -->
+    <!-- VIEW 5: Struk/Receipt -->
+    <!-- ======================== -->
+    <VBox fx:id="viewReceipt" styleClass="receipt-content" 
+          spacing="8" alignment="CENTER" prefWidth="320" visible="false">
+        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+        
+        <Label text="✨ SALON BEAUTY ✨" styleClass="store-name"/>
+        <Label text="Jl. Veteran No. 8" styleClass="store-address"/>
+        
+        <Label text="═══════════════════════════════" styleClass="receipt-separator"/>
+        
+        <Label fx:id="lblTrxId" styleClass="receipt-info" text="No. Transaksi: #000000"/>
+        <Label fx:id="lblDateTime" styleClass="receipt-info" text="Tanggal: --/--/---- --:--"/>
+        <Label fx:id="lblPelanggan" styleClass="receipt-info" text="Pelanggan: -"/>
+        
+        <Label text="───────────────────────────────" styleClass="receipt-separator"/>
+        
+        <VBox fx:id="itemsBox" spacing="3" alignment="CENTER_LEFT"/>
+        
+        <Label text="───────────────────────────────" styleClass="receipt-separator"/>
+        
+        <Label text="TOTAL" styleClass="receipt-total-label"/>
+        <Label fx:id="lblTotalReceipt" styleClass="receipt-total-value" text="Rp 0"/>
+        
+        <Label text="───────────────────────────────" styleClass="receipt-separator"/>
+        
+        <Label fx:id="lblMetode" styleClass="receipt-method" text="Metode: -"/>
+        <Label fx:id="lblPaymentDetails" styleClass="receipt-info" text=""/>
+        
+        <Label text="═══════════════════════════════" styleClass="receipt-separator"/>
+        
+        <Label text="🙏 Terima Kasih 🙏" styleClass="receipt-thankyou"/>
+        <Label text="Sampai jumpa kembali!" styleClass="receipt-visit-again"/>
+        
+        <Button text="Selesai" onAction="#handleSelesai" styleClass="btn-primary"/>
+    </VBox>
+    
+</StackPane>

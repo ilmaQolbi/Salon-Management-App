@@ -1,6 +1,9 @@
 package Controller;
 
 import DAO.DatabaseManager;
+import DAO.UserDAO;
+import DAO.LayananDAO;
+import Model.Admin;
 import Model.Layanan;
 import Model.User;
 import Model.LaporanModel;
@@ -223,48 +226,18 @@ public class AdminController {
 
     private void muatDataKaryawan() {
         DaftarKaryawan.clear();
-        String query = "SELECT * FROM users";
-        ResultSet rs = DatabaseManager.executeQuery(query);
-        try {
-            while (rs != null && rs.next()) {
-                DaftarKaryawan.add(new User(
-                        rs.getString("idUser"),
-                        rs.getString("nama"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("role"),
-                        rs.getString("status")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // Gunakan DAO untuk mengambil data
+        DaftarKaryawan.addAll(UserDAO.getAllUsers());
     }
 
+    /**
+     * Generate ID user baru berdasarkan role
+     * 
+     * @deprecated Gunakan Admin.generateUserId() dari Model
+     */
     private String generateNextId(String role) {
-        String prefix;
-        if (role.equalsIgnoreCase("Admin"))
-            prefix = "ADM";
-        else if (role.equalsIgnoreCase("Kasir"))
-            prefix = "KSR";
-        else
-            prefix = "KRY";
-
-        String query = "SELECT idUser FROM users WHERE idUser LIKE '" + prefix + "%' ORDER BY idUser DESC LIMIT 1";
-        ResultSet rs = DatabaseManager.executeQuery(query);
-        int nextNumber = 1;
-
-        try {
-            if (rs != null && rs.next()) {
-                String lastId = rs.getString("idUser");
-                if (lastId.length() >= 3) {
-                    String numberPart = lastId.substring(3);
-                    nextNumber = Integer.parseInt(numberPart) + 1;
-                }
-            }
-        } catch (SQLException | NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return String.format("%s%03d", prefix, nextNumber);
+        // Delegate ke Model Admin
+        return Admin.generateUserId(role);
     }
 
     @FXML
@@ -288,10 +261,11 @@ public class AdminController {
         if (status == null)
             status = "Aktif";
 
-        String query = "INSERT INTO users (idUser, nama, email, password, role, status) VALUES (?, ?, ?, ?, ?, ?)";
-        int result = DatabaseManager.executeUpdate(query, idUserBaru, nama, username, password, role, status);
+        // Gunakan DAO untuk tambah user
+        User newUser = new User(idUserBaru, nama, username, password, role, status);
+        boolean success = UserDAO.tambahUser(newUser);
 
-        if (result > 0) {
+        if (success) {
             tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses",
                     "User ID: " + idUserBaru + " berhasil ditambahkan.");
             muatDataKaryawan();
@@ -318,21 +292,21 @@ public class AdminController {
         String username = txtUsername.getText();
         String password = txtPassword.getText();
         String role = (String) cbRole.getValue();
+        String status = (String) cbStatus.getValue();
 
         // Validasi: field tidak boleh kosong
         if (nama == null || nama.isEmpty() ||
                 username == null || username.isEmpty() ||
                 password == null || password.isEmpty() ||
-                role == null) {
+                role == null || status == null) {
             tampilkanPeringatan(Alert.AlertType.WARNING, "Warning", "Semua field harus diisi untuk update!");
             return;
         }
 
-        // Update query
-        String query = "UPDATE users SET nama = ?, email = ?, password = ?, role = ? WHERE idUser = ?";
-        int result = DatabaseManager.executeUpdate(query, nama, username, password, role, selected.getIdUser());
+        // Gunakan DAO untuk update user (termasuk status)
+        boolean success = UserDAO.updateUser(selected.getIdUser(), nama, username, password, role, status);
 
-        if (result > 0) {
+        if (success) {
             tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses", "Data user berhasil diperbarui.");
             muatDataKaryawan();
             // Clear fields/Selection
@@ -351,8 +325,8 @@ public class AdminController {
     void aksiHapusKaryawan(ActionEvent event) {
         User selected = (User) tableKaryawan.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            String query = "DELETE FROM users WHERE idUser = ?";
-            if (DatabaseManager.executeUpdate(query, selected.getIdUser()) > 0) {
+            // Gunakan DAO untuk hapus user
+            if (UserDAO.hapusUser(selected.getIdUser())) {
                 DaftarKaryawan.remove(selected);
                 tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses", "Data dihapus.");
             }
@@ -399,19 +373,9 @@ public class AdminController {
 
     private void muatDataLayanan() {
         DaftarLayanan.clear();
-        String query = "SELECT * FROM layanan";
-        ResultSet rs = DatabaseManager.executeQuery(query);
-        try {
-            while (rs != null && rs.next()) {
-                DaftarLayanan.add(new Layanan(
-                        rs.getInt("id_layanan"),
-                        rs.getString("nama_layanan"),
-                        rs.getDouble("harga"),
-                        rs.getInt("durasi")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // Gunakan DAO untuk mengambil data
+        LayananDAO dao = new LayananDAO();
+        DaftarLayanan.addAll(dao.getAllLayanan());
     }
 
     @FXML
@@ -429,10 +393,11 @@ public class AdminController {
             double harga = Double.parseDouble(hargaStr);
             int durasi = Integer.parseInt(durasiStr);
 
-            String query = "INSERT INTO layanan (nama_layanan, harga, durasi) VALUES (?, ?, ?)";
-            int result = DatabaseManager.executeUpdate(query, nama, harga, durasi);
+            // Gunakan DAO untuk tambah layanan
+            LayananDAO dao = new LayananDAO();
+            boolean success = dao.tambahLayanan(nama, harga, durasi);
 
-            if (result > 0) {
+            if (success) {
                 tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses", "Layanan berhasil ditambahkan.");
                 muatDataLayanan();
                 txtNamaLayanan.clear();
@@ -449,8 +414,9 @@ public class AdminController {
     void aksiHapusLayanan(ActionEvent event) {
         Layanan selected = (Layanan) tableLayanan.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            String query = "DELETE FROM layanan WHERE id_layanan = ?";
-            if (DatabaseManager.executeUpdate(query, selected.getIdLayanan()) > 0) {
+            // Gunakan DAO untuk hapus layanan
+            LayananDAO dao = new LayananDAO();
+            if (dao.hapusLayanan(selected.getIdLayanan())) {
                 DaftarLayanan.remove(selected);
                 tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses", "Layanan dihapus.");
             }
@@ -466,31 +432,38 @@ public class AdminController {
         }
 
         String nama = txtNamaLayanan.getText();
-        String harga = txtHarga.getText();
-        String durasi = txtDurasi.getText();
+        String hargaStr = txtHarga.getText();
+        String durasiStr = txtDurasi.getText();
 
         // Validasi: field tidak boleh kosong
         if (nama == null || nama.isEmpty() ||
-                harga == null || harga.isEmpty() ||
-                durasi == null || durasi.isEmpty()) {
+                hargaStr == null || hargaStr.isEmpty() ||
+                durasiStr == null || durasiStr.isEmpty()) {
             tampilkanPeringatan(Alert.AlertType.WARNING, "Warning", "Semua field harus diisi untuk update!");
             return;
         }
 
-        // Update query
-        String query = "UPDATE layanan SET nama_layanan = ?, harga = ?, durasi = ? WHERE id_layanan = ?";
-        int result = DatabaseManager.executeUpdate(query, nama, harga, durasi, selected.getIdLayanan());
+        try {
+            double harga = Double.parseDouble(hargaStr);
+            int durasi = Integer.parseInt(durasiStr);
 
-        if (result > 0) {
-            tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses", "Data layanan berhasil diperbarui.");
-            muatDataLayanan();
-            // Clear fields/Selection
-            tableLayanan.getSelectionModel().clearSelection();
-            txtNamaLayanan.clear();
-            txtHarga.clear();
-            txtDurasi.clear();
-        } else {
-            tampilkanPeringatan(Alert.AlertType.ERROR, "Gagal", "Gagal mengupdate user.");
+            // Gunakan DAO untuk update layanan
+            LayananDAO dao = new LayananDAO();
+            boolean success = dao.updateLayanan(selected.getIdLayanan(), nama, harga, durasi);
+
+            if (success) {
+                tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses", "Data layanan berhasil diperbarui.");
+                muatDataLayanan();
+                // Clear fields/Selection
+                tableLayanan.getSelectionModel().clearSelection();
+                txtNamaLayanan.clear();
+                txtHarga.clear();
+                txtDurasi.clear();
+            } else {
+                tampilkanPeringatan(Alert.AlertType.ERROR, "Gagal", "Gagal mengupdate layanan.");
+            }
+        } catch (NumberFormatException e) {
+            tampilkanPeringatan(Alert.AlertType.ERROR, "Format Salah", "Harga dan Durasi harus berupa angka.");
         }
     }
 
@@ -566,7 +539,7 @@ public class AdminController {
                 "LEFT JOIN users u ON l.id_user = u.idUser " +
                 "ORDER BY l.status ASC, l.tanggal DESC";
 
-        ResultSet rs = DatabaseManager.executeQuery(query);
+        ResultSet rs = DatabaseManager.eksekusiQuery(query);
         try {
             while (rs != null && rs.next()) {
                 String namaUser = rs.getString("nama");
@@ -587,7 +560,7 @@ public class AdminController {
 
     private boolean updateStatusLaporan(int id, String status) {
         String query = "UPDATE laporan_kendala SET status = ? WHERE id_laporan = ?";
-        return DatabaseManager.executeUpdate(query, status, id) > 0;
+        return DatabaseManager.eksekusiUpdate(query, status, id) > 0;
     }
 
     @FXML

@@ -21,7 +21,7 @@
             <children>
                 <Label alignment="CENTER" prefHeight="60.0" prefWidth="220.0" styleClass="sidebar-title" text="SALON ADMIN" />
                 
-                <Button fx:id="btnKaryawan" mnemonicParsing="false" onAction="#lihatKaryawan" prefWidth="220.0" styleClass="sidebar-button" text="Kelola Karyawan" />
+                <Button fx:id="btnKaryawan" mnemonicParsing="false" onAction="#lihatKaryawan" prefWidth="220.0" styleClass="sidebar-button" text="Kelola Pengguna" />
                 <Button fx:id="btnLayanan" mnemonicParsing="false" onAction="#lihatLayanan" prefWidth="220.0" styleClass="sidebar-button" text="Kelola Layanan" />
                 <Button fx:id="btnLaporan" mnemonicParsing="false" onAction="#handleShowLaporan" prefWidth="220.0" styleClass="sidebar-button" text="Laporan Kendala" />
                 
