@@ -57,6 +57,7 @@
                                 <Button fx:id="btnAntrian" mnemonicParsing="false" onAction="#handleShowAntrian" prefWidth="200.0" styleClass="sidebar-button" text="📋 Antrian Pekerjaan" />
                                 <Button fx:id="btnRiwayat" mnemonicParsing="false" onAction="#handleShowRiwayat" prefWidth="200.0" styleClass="sidebar-button" text="📜 Riwayat Transaksi" />
                                 <Button fx:id="btnKomisi" mnemonicParsing="false" onAction="#handleShowKomisi" prefWidth="200.0" styleClass="sidebar-button" text="💰 Lihat Komisi" />
+                                <Button fx:id="btnStatistik" mnemonicParsing="false" onAction="#handleShowStatistik" prefWidth="200.0" styleClass="sidebar-button" text="📊 Statistik" />
                             </children>
                         </VBox>
 
@@ -253,6 +254,13 @@
                                         </TableView>
                                     </children>
                                 </VBox>
+                            </children>
+                        </VBox>
+
+                        <!-- VIEW: STATISTIK -->
+                        <VBox fx:id="viewStatistik" visible="false">
+                            <children>
+                                <fx:include source="KaryawanStatistik.fxml" fx:id="statistikView" />
                             </children>
                         </VBox>
                     </children>

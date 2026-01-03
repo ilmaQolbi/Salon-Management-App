@@ -103,3 +103,213 @@
     -fx-background-color: #bcaaa4;
     /* Medium Light Brown */
 }
+
+/* ============================================= */
+/* BENTO GRID - Service Cards                   */
+/* ============================================= */
+
+.service-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.service-scroll-pane>.viewport {
+    -fx-background-color: transparent;
+}
+
+.service-container {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-hgap: 20;
+    -fx-vgap: 20;
+}
+
+.service-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-padding: 15;
+    -fx-pref-width: 280;
+    -fx-min-height: 280;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0, 0, 4);
+    -fx-cursor: hand;
+}
+
+.service-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(93, 64, 55, 0.25), 20, 0, 0, 8);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.service-image-container {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 12;
+    -fx-padding: 0;
+    -fx-alignment: center;
+    -fx-min-height: 120;
+    -fx-max-height: 120;
+}
+
+.service-image {
+    -fx-effect: null;
+}
+
+.service-card-id {
+    -fx-font-size: 11px;
+    -fx-text-fill: #8d6e63;
+    -fx-font-weight: 600;
+}
+
+.service-card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #3e2723;
+}
+
+.service-card-price {
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #5d4037;
+}
+
+.service-card-duration {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6d4c41;
+    -fx-font-style: italic;
+}
+
+.card-button-container {
+    -fx-spacing: 8;
+    -fx-alignment: center-right;
+}
+
+.card-edit-button {
+    -fx-background-color: #d7ccc8;
+    -fx-text-fill: #3e2723;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+}
+
+.card-edit-button:hover {
+    -fx-background-color: #bcaaa4;
+}
+
+.card-delete-button {
+    -fx-background-color: #ef5350;
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+}
+
+.card-delete-button:hover {
+    -fx-background-color: #e53935;
+}
+
+/* Input Form styling for Layanan */
+.layanan-form-container {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-background-radius: 12;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 0, 2);
+}
+
+.custom-input {
+    -fx-background-color: white;
+    -fx-border-color: #d7ccc8;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+}
+
+.custom-input:focused {
+    -fx-border-color: #5d4037;
+    -fx-effect: dropshadow(gaussian, rgba(93, 64, 55, 0.2), 8, 0, 0, 0);
+}
+
+/* ============================================= */
+/* LAPORAN PENJUALAN - Sales Report             */
+/* ============================================= */
+
+.report-container {
+    -fx-background-color: #f8fafc;
+}
+
+.report-title {
+    -fx-text-fill: #3e2723;
+}
+
+.btn-refresh {
+    -fx-background-color: #5d4037;
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.btn-refresh:hover {
+    -fx-background-color: #4e342e;
+}
+
+.summary-cards-container {
+    -fx-spacing: 20;
+}
+
+.summary-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0, 0, 4);
+    -fx-min-width: 180;
+}
+
+.summary-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(93, 64, 55, 0.2), 15, 0, 0, 6);
+}
+
+.card-total {
+    -fx-background-color: linear-gradient(to bottom right, #5d4037, #3e2723);
+}
+
+.card-total .card-label,
+.card-total .card-subtitle,
+.card-total .card-icon {
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+}
+
+.card-icon {
+    -fx-font-size: 28px;
+}
+
+.card-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6d4c41;
+    -fx-font-weight: 600;
+}
+
+.card-value {
+    -fx-text-fill: #5d4037;
+}
+
+.card-value-total {
+    -fx-text-fill: #FFD700;
+}
+
+.card-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #8d6e63;
+}
+
+.chart-container {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0, 0, 4);
+}
+
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #3e2723;
+}

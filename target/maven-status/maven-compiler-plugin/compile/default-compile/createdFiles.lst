@@ -1,5 +1,4 @@
 Controller\RegisterController.class
-Model\Jadwal.class
 Model\Layanan.class
 Model\Karyawan.class
 Main.class

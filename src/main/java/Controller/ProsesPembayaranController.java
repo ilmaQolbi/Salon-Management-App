@@ -245,6 +245,70 @@ public class ProsesPembayaranController {
         tutupDialog();
     }
 
+    @FXML
+    void handlePrintPDF() {
+        // Menggunakan JavaFX Print API untuk print/save ke PDF
+        javafx.print.PrinterJob job = javafx.print.PrinterJob.createPrinterJob();
+        if (job != null) {
+            // Setup custom page size sesuai ukuran struk
+            javafx.print.Printer printer = job.getPrinter();
+
+            // Dapatkan ukuran struk dalam piksel
+            double receiptWidth = viewReceipt.getWidth();
+            double receiptHeight = viewReceipt.getHeight();
+
+            // Convert ke points (1 point = 1/72 inch, 1 pixel ≈ 0.75 point at 96 DPI)
+            double widthPoints = receiptWidth * 0.75;
+            double heightPoints = receiptHeight * 0.75;
+
+            // Buat custom paper size
+            javafx.print.Paper customPaper = javafx.print.Paper.A4; // Default fallback
+            try {
+                // Coba buat ukuran custom menggunakan refleksi atau gunakan predefined
+                // Gunakan Paper yang paling mendekati untuk hasil terbaik
+                javafx.print.PageLayout pageLayout = printer.createPageLayout(
+                        customPaper,
+                        javafx.print.PageOrientation.PORTRAIT,
+                        javafx.print.Printer.MarginType.HARDWARE_MINIMUM);
+                job.getJobSettings().setPageLayout(pageLayout);
+            } catch (Exception e) {
+                // Gunakan default jika gagal
+            }
+
+            // Tampilkan dialog print (user bisa pilih "Save as PDF" di printer)
+            boolean proceed = job.showPrintDialog(viewReceipt.getScene().getWindow());
+            if (proceed) {
+                // Dapatkan ukuran halaman
+                double pageWidth = job.getJobSettings().getPageLayout().getPrintableWidth();
+                double pageHeight = job.getJobSettings().getPageLayout().getPrintableHeight();
+
+                // Hitung offset untuk center struk di halaman
+                double offsetX = (pageWidth - receiptWidth) / 2;
+                double offsetY = (pageHeight - receiptHeight) / 2;
+
+                // Pindahkan struk ke tengah halaman
+                viewReceipt.setTranslateX(offsetX);
+                viewReceipt.setTranslateY(offsetY);
+
+                // Print viewReceipt
+                boolean printed = job.printPage(viewReceipt);
+
+                // Reset posisi
+                viewReceipt.setTranslateX(0);
+                viewReceipt.setTranslateY(0);
+
+                if (printed) {
+                    job.endJob();
+                    tampilkanAlert("Berhasil", "Struk berhasil dicetak/disimpan!");
+                } else {
+                    tampilkanAlert("Gagal", "Gagal mencetak struk.");
+                }
+            }
+        } else {
+            tampilkanAlert("Error", "Tidak ada printer yang tersedia.");
+        }
+    }
+
     // === HELPER ===
 
     private void hitungKembalian(String input) {

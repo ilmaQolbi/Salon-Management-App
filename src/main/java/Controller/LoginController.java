@@ -134,7 +134,7 @@ public class LoginController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Register Karyawan");
-            stage.centerOnScreen();
+            stage.setMaximized(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -163,7 +163,7 @@ public class LoginController implements Initializable {
             // Ganti scene ke dashboard
             stage.setScene(new Scene(root));
             stage.setTitle(judul);
-
+            stage.setMaximized(true);
             stage.show();
 
         } catch (IOException e) {

@@ -4,11 +4,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -24,6 +26,7 @@
                 <Button fx:id="btnKaryawan" mnemonicParsing="false" onAction="#lihatKaryawan" prefWidth="220.0" styleClass="sidebar-button" text="Kelola Pengguna" />
                 <Button fx:id="btnLayanan" mnemonicParsing="false" onAction="#lihatLayanan" prefWidth="220.0" styleClass="sidebar-button" text="Kelola Layanan" />
                 <Button fx:id="btnLaporan" mnemonicParsing="false" onAction="#handleShowLaporan" prefWidth="220.0" styleClass="sidebar-button" text="Laporan Kendala" />
+                <Button fx:id="btnPenjualan" mnemonicParsing="false" onAction="#handleShowPenjualan" prefWidth="220.0" styleClass="sidebar-button" text="📊 Laporan Penjualan" />
                 
                 <VBox alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS">
                     <children>
@@ -73,7 +76,7 @@
                     </children>
                 </VBox>
 
-                <!-- View Layanan -->
+                <!-- View Layanan - TableView -->
                 <VBox fx:id="viewLayanan" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" styleClass="content-area" visible="false">
                     <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -82,20 +85,20 @@
                         <Label styleClass="page-title" text="Manajemen Layanan Salon" />
                         <HBox spacing="10.0">
                             <children>
-                                <TextField fx:id="txtNamaLayanan" promptText="Nama Layanan" styleClass="custom-input" HBox.hgrow="ALWAYS" />
+                                <TextField fx:id="txtNamaLayanan" prefWidth="200.0" promptText="Nama Layanan" styleClass="custom-input" />
                                 <TextField fx:id="txtHarga" prefWidth="150.0" promptText="Harga (Rp)" styleClass="custom-input" />
-                                <TextField fx:id="txtDurasi" prefWidth="100.0" promptText="Durasi (Menit)" styleClass="custom-input" />
-                                <Button mnemonicParsing="false" onAction="#aksiTambahLayanan" styleClass="action-button-success" text="Simpan Layanan" />
+                                <TextField fx:id="txtDurasi" prefWidth="120.0" promptText="Durasi (Menit)" styleClass="custom-input" />
+                                <Button mnemonicParsing="false" onAction="#aksiTambahLayanan" styleClass="action-button-success" text="Tambah" />
                                 <Button mnemonicParsing="false" onAction="#aksiUpdateLayanan" styleClass="action-button-warning" text="Update" />
                                 <Button mnemonicParsing="false" onAction="#aksiHapusLayanan" styleClass="action-button-danger" text="Hapus" />
                             </children>
                         </HBox>
                         <TableView fx:id="tableLayanan" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn fx:id="colIdLayanan" prefWidth="75.0" text="ID" />
+                                <TableColumn fx:id="colNoLayanan" prefWidth="50.0" text="No" />
                                 <TableColumn fx:id="colNamaLayanan" prefWidth="250.0" text="Nama Layanan" />
-                                <TableColumn fx:id="colHarga" prefWidth="150.0" text="Harga" />
-                                <TableColumn fx:id="colDurasi" prefWidth="100.0" text="Durasi (Menit)" />
+                                <TableColumn fx:id="colHargaLayanan" prefWidth="150.0" text="Harga" />
+                                <TableColumn fx:id="colDurasiLayanan" prefWidth="120.0" text="Durasi (Menit)" />
                             </columns>
                         </TableView>
                     </children>
@@ -118,6 +121,13 @@
                                 <TableColumn fx:id="colLaporAksi" prefWidth="120.0" text="Aksi" />
                             </columns>
                         </TableView>
+                    </children>
+                </VBox>
+
+                <!-- View Penjualan -->
+                <VBox fx:id="viewPenjualan" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="content-area" visible="false">
+                    <children>
+                        <fx:include source="LaporanPenjualan.fxml" />
                     </children>
                 </VBox>
 

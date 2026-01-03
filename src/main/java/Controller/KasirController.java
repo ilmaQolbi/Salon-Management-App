@@ -277,6 +277,7 @@ public class KasirController {
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
+            stage.setMaximized(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -299,5 +300,30 @@ public class KasirController {
     @FXML
     void handleLaporKendala(ActionEvent event) {
         LaporKendalaController.showDialog(currentUserId);
+    }
+
+    @FXML
+    void handleLaporanPenjualan(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/LaporanPenjualan.fxml"));
+            Parent root = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Laporan Penjualan");
+            dialogStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+
+            Scene scene = new Scene(root, 900, 600);
+            scene.getStylesheets().add(getClass().getResource("/Style/styleAdmin.css").toExternalForm());
+
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Gagal memuat halaman Laporan Penjualan.");
+            alert.showAndWait();
+        }
     }
 }

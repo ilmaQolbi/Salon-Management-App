@@ -158,7 +158,10 @@
         <Label text="🙏 Terima Kasih 🙏" styleClass="receipt-thankyou"/>
         <Label text="Sampai jumpa kembali!" styleClass="receipt-visit-again"/>
         
-        <Button text="Selesai" onAction="#handleSelesai" styleClass="btn-primary"/>
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="📄 Print PDF" onAction="#handlePrintPDF" styleClass="btn-pdf"/>
+            <Button text="Selesai" onAction="#handleSelesai" styleClass="btn-primary"/>
+        </HBox>
     </VBox>
     
 </StackPane>

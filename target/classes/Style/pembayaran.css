@@ -328,3 +328,18 @@
     -fx-text-fill: #8d6e63;
     -fx-padding: 8 0;
 }
+
+/* ============================================
+   PDF PRINT BUTTON
+   ============================================ */
+.btn-pdf {
+    -fx-background-color: linear-gradient(to right, #795548, #5d4037);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(121, 85, 72, 0.4), 10, 0, 0, 3);
+}
+
+.btn-pdf:hover {
+    -fx-background-color: linear-gradient(to right, #6d4c41, #4e342e);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}

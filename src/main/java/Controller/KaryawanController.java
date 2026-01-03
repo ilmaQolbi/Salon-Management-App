@@ -47,6 +47,10 @@ public class KaryawanController {
     private VBox viewRiwayat;
     @FXML
     private VBox viewKomisi;
+    @FXML
+    private VBox viewStatistik;
+    @FXML
+    private KaryawanStatistikController statistikViewController;
 
     // Table Antrian
     @FXML
@@ -204,6 +208,7 @@ public class KaryawanController {
         viewAntrian.setVisible(false);
         viewRiwayat.setVisible(false);
         viewKomisi.setVisible(false);
+        viewStatistik.setVisible(false);
         targetView.setVisible(true);
     }
 
@@ -223,6 +228,14 @@ public class KaryawanController {
     void handleShowKomisi(ActionEvent event) {
         switchView(viewKomisi);
         muatDataKomisi();
+    }
+
+    @FXML
+    void handleShowStatistik(ActionEvent event) {
+        switchView(viewStatistik);
+        if (statistikViewController != null) {
+            statistikViewController.setKaryawanId(currentUserId);
+        }
     }
 
     // --- ACTIONS ---
@@ -256,7 +269,7 @@ public class KaryawanController {
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.centerOnScreen();
+            stage.setMaximized(true);
         } catch (IOException e) {
             e.printStackTrace();
         }

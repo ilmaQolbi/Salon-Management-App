@@ -315,3 +315,19 @@
 .karyawan-dialog-pane {
     -fx-background-color: #fdfbf7;
 }
+
+/* Floating Action Button for Report */
+.fab-btn-report {
+    -fx-background-color: #5d4037;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-padding: 10 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.fab-btn-report:hover {
+    -fx-background-color: #4e342e;
+}

@@ -30,7 +30,7 @@ import javafx.beans.property.SimpleObjectProperty;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class AdminController {
 
-    // --- UI (FXML) ---
+    // Ini bagian UI (FXML) ya ges
 
     // Navigasi Sidebar
     @FXML
@@ -39,8 +39,8 @@ public class AdminController {
     private VBox viewLayanan;
     @FXML
     private VBox viewLaporan;
-
-    // --- BAGIAN KARYAWAN ---
+    @FXML
+    private VBox viewPenjualan;
     @FXML
     private TextField txtNamaKaryawan;
     @FXML
@@ -51,7 +51,6 @@ public class AdminController {
     private ComboBox cbRole;
     @FXML
     private ComboBox cbStatus;
-
     @FXML
     private TableView tableKaryawan;
     @FXML
@@ -73,17 +72,15 @@ public class AdminController {
     @FXML
     private TextField txtDurasi;
     @FXML
-    private TableView tableLayanan;
+    private TableView<Layanan> tableLayanan;
     @FXML
-    private TableColumn colIdLayanan;
+    private TableColumn colNoLayanan;
     @FXML
     private TableColumn colNamaLayanan;
     @FXML
-    private TableColumn colHarga;
+    private TableColumn colHargaLayanan;
     @FXML
-    private TableColumn colDurasi;
-
-    // --- BAGIAN LAPORAN ---
+    private TableColumn colDurasiLayanan;
     @FXML
     private TableView<LaporanModel> tableLaporan;
     @FXML
@@ -99,15 +96,15 @@ public class AdminController {
     @FXML
     private TableColumn<LaporanModel, Button> colLaporAksi;
 
-    //DATA LIST
     private ObservableList DaftarKaryawan = FXCollections.observableArrayList();
-    private ObservableList DaftarLayanan = FXCollections.observableArrayList();
+    private ObservableList<Layanan> DaftarLayanan = FXCollections.observableArrayList();
     private ObservableList<LaporanModel> DaftarLaporan = FXCollections.observableArrayList();
 
-    // INISIALISASI (SAAT APLIKASI DIBUKA)
+    // ini bagian insialisasi aplikasinyaa
+
     @FXML
     public void initialize() {
-        // A. Setup Karyawan
+
         cbRole.setItems(FXCollections.observableArrayList("Admin", "Kasir", "Karyawan"));
         cbStatus.setItems(FXCollections.observableArrayList("Aktif", "Nonaktif"));
 
@@ -133,31 +130,13 @@ public class AdminController {
             }
         });
 
-
-        colIdLayanan.setCellValueFactory(new PropertyValueFactory("idLayanan"));
-        colNamaLayanan.setCellValueFactory(new PropertyValueFactory("namaLayanan"));
-        colHarga.setCellValueFactory(new PropertyValueFactory("harga"));
-        colDurasi.setCellValueFactory(new PropertyValueFactory("durasi"));
-        tableLayanan.setItems(DaftarLayanan);
-
-
-        tableLayanan.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                Layanan layanan = (Layanan) newSelection;
-                txtNamaLayanan.setText(layanan.getNamaLayanan());
-                txtHarga.setText(String.valueOf(layanan.getHarga()));
-                txtDurasi.setText(String.valueOf(layanan.getDurasi()));
-            }
-        });
-
-        // C. Setup Laporan
+        setupTableLayanan();
         setupTabelLaporan();
 
-        // C. Tampilkan View Default dan Muat Data
         lihatKaryawan(null);
     }
 
-    // Setup kolom Status: tampilkan tombol ✓/✗
+    // ini bagian setup untuk menyetujui pendaftara karyawan
     private void setupKolomStatus() {
         Callback cellFactory = new Callback() {
             public Object call(Object column) {
@@ -218,23 +197,15 @@ public class AdminController {
         colStatus.setCellFactory(cellFactory);
     }
 
-    // ===============================================================
-    // BAGIAN LOGIKA KARYAWAN (USERS)
-    // ===============================================================
-
     private void muatDataKaryawan() {
         DaftarKaryawan.clear();
-        // Gunakan DAO untuk mengambil data
+
         DaftarKaryawan.addAll(UserDAO.getAllUsers());
     }
 
-    /**
-     * Generate ID user baru berdasarkan role
-     * 
-     * @deprecated Gunakan Admin.generateUserId() dari Model
-     */
+    // bagian utntuk membuat id pake Admin.generateUserId()
+
     private String generateNextId(String role) {
-        // Delegate ke Model Admin
         return Admin.generateUserId(role);
     }
 
@@ -246,7 +217,7 @@ public class AdminController {
         String role = (String) cbRole.getValue();
         String status = (String) cbStatus.getValue();
 
-        // Validasi: semua field wajib diisi
+        // validasi kolom yg harus terisi
         if (nama == null || nama.isEmpty() ||
                 username == null || username.isEmpty() ||
                 password == null || password.isEmpty() ||
@@ -259,15 +230,14 @@ public class AdminController {
         if (status == null)
             status = "Aktif";
 
-        // Gunakan DAO untuk tambah user
+        // nambah user pake DAO
         User newUser = new User(idUserBaru, nama, username, password, role, status);
-        boolean success = UserDAO.tambahUser(newUser);
+        boolean sukses = UserDAO.tambahUser(newUser);
 
-        if (success) {
+        if (sukses) {
             tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses",
                     "User ID: " + idUserBaru + " berhasil ditambahkan.");
             muatDataKaryawan();
-            // Clear all fields
             txtNamaKaryawan.clear();
             txtUsername.clear();
             txtPassword.clear();
@@ -280,8 +250,8 @@ public class AdminController {
 
     @FXML
     void aksiUpdateKaryawan(ActionEvent event) {
-        User selected = (User) tableKaryawan.getSelectionModel().getSelectedItem();
-        if (selected == null) {
+        User dipilih = (User) tableKaryawan.getSelectionModel().getSelectedItem();
+        if (dipilih == null) {
             tampilkanPeringatan(Alert.AlertType.WARNING, "Peringatan", "Pilih user yang ingin diupdate!");
             return;
         }
@@ -292,7 +262,6 @@ public class AdminController {
         String role = (String) cbRole.getValue();
         String status = (String) cbStatus.getValue();
 
-        // Validasi: field tidak boleh kosong
         if (nama == null || nama.isEmpty() ||
                 username == null || username.isEmpty() ||
                 password == null || password.isEmpty() ||
@@ -301,13 +270,11 @@ public class AdminController {
             return;
         }
 
-        // Gunakan DAO untuk update user (termasuk status)
-        boolean success = UserDAO.updateUser(selected.getIdUser(), nama, username, password, role, status);
+        boolean sukses = UserDAO.updateUser(dipilih.getIdUser(), nama, username, password, role, status);
 
-        if (success) {
+        if (sukses) {
             tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses", "Data user berhasil diperbarui.");
             muatDataKaryawan();
-            // Clear fields/Selection
             tableKaryawan.getSelectionModel().clearSelection();
             txtNamaKaryawan.clear();
             txtUsername.clear();
@@ -366,12 +333,42 @@ public class AdminController {
     }
 
     // ===============================================================
-    // BAGIAN LOGIKA LAYANAN (SERVICES) - INI YANG HILANG SEBELUMNYA
+    // BAGIAN LAYANAN - TABLE VIEW
     // ===============================================================
+
+    private void setupTableLayanan() {
+        // Kolom nomor urut
+        colNoLayanan.setCellFactory(column -> new TableCell<Layanan, Void>() {
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(String.valueOf(getIndex() + 1));
+                }
+            }
+        });
+
+        colNamaLayanan.setCellValueFactory(new PropertyValueFactory("namaLayanan"));
+        colHargaLayanan.setCellValueFactory(new PropertyValueFactory("harga"));
+        colDurasiLayanan.setCellValueFactory(new PropertyValueFactory("durasi"));
+
+        tableLayanan.setItems(DaftarLayanan);
+
+        // Listener untuk mengisi form saat baris dipilih
+        tableLayanan.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                Layanan layanan = newSelection;
+                txtNamaLayanan.setText(layanan.getNamaLayanan());
+                txtHarga.setText(String.valueOf((int) layanan.getHarga()));
+                txtDurasi.setText(String.valueOf(layanan.getDurasi()));
+            }
+        });
+    }
 
     private void muatDataLayanan() {
         DaftarLayanan.clear();
-        // Gunakan DAO untuk mengambil data
         LayananDAO dao = new LayananDAO();
         DaftarLayanan.addAll(dao.getAllLayanan());
     }
@@ -391,40 +388,23 @@ public class AdminController {
             double harga = Double.parseDouble(hargaStr);
             int durasi = Integer.parseInt(durasiStr);
 
-            // Gunakan DAO untuk tambah layanan
             LayananDAO dao = new LayananDAO();
             boolean success = dao.tambahLayanan(nama, harga, durasi);
 
             if (success) {
                 tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses", "Layanan berhasil ditambahkan.");
                 muatDataLayanan();
-                txtNamaLayanan.clear();
-                txtHarga.clear();
-                txtDurasi.clear();
+                clearLayananForm();
             }
         } catch (NumberFormatException e) {
             tampilkanPeringatan(Alert.AlertType.ERROR, "Format Salah", "Harga dan Durasi harus berupa angka.");
         }
     }
 
-    // untuk menghapus layanan
-    @FXML
-    void aksiHapusLayanan(ActionEvent event) {
-        Layanan selected = (Layanan) tableLayanan.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            // Gunakan DAO untuk hapus layanan
-            LayananDAO dao = new LayananDAO();
-            if (dao.hapusLayanan(selected.getIdLayanan())) {
-                DaftarLayanan.remove(selected);
-                tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses", "Layanan dihapus.");
-            }
-        }
-    }
-
     @FXML
     void aksiUpdateLayanan(ActionEvent event) {
-        Layanan selected = (Layanan) tableLayanan.getSelectionModel().getSelectedItem();
-        if (selected == null) {
+        Layanan dipilih = tableLayanan.getSelectionModel().getSelectedItem();
+        if (dipilih == null) {
             tampilkanPeringatan(Alert.AlertType.WARNING, "Peringatan", "Pilih layanan yang ingin diupdate!");
             return;
         }
@@ -433,7 +413,6 @@ public class AdminController {
         String hargaStr = txtHarga.getText();
         String durasiStr = txtDurasi.getText();
 
-        // Validasi: field tidak boleh kosong
         if (nama == null || nama.isEmpty() ||
                 hargaStr == null || hargaStr.isEmpty() ||
                 durasiStr == null || durasiStr.isEmpty()) {
@@ -445,24 +424,51 @@ public class AdminController {
             double harga = Double.parseDouble(hargaStr);
             int durasi = Integer.parseInt(durasiStr);
 
-            // Gunakan DAO untuk update layanan
             LayananDAO dao = new LayananDAO();
-            boolean success = dao.updateLayanan(selected.getIdLayanan(), nama, harga, durasi);
+            boolean success = dao.updateLayanan(dipilih.getIdLayanan(), nama, harga, durasi);
 
             if (success) {
                 tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses", "Data layanan berhasil diperbarui.");
                 muatDataLayanan();
-                // Clear fields/Selection
-                tableLayanan.getSelectionModel().clearSelection();
-                txtNamaLayanan.clear();
-                txtHarga.clear();
-                txtDurasi.clear();
+                clearLayananForm();
             } else {
                 tampilkanPeringatan(Alert.AlertType.ERROR, "Gagal", "Gagal mengupdate layanan.");
             }
         } catch (NumberFormatException e) {
             tampilkanPeringatan(Alert.AlertType.ERROR, "Format Salah", "Harga dan Durasi harus berupa angka.");
         }
+    }
+
+    @FXML
+    void aksiHapusLayanan(ActionEvent event) {
+        Layanan dipilih = tableLayanan.getSelectionModel().getSelectedItem();
+        if (dipilih == null) {
+            tampilkanPeringatan(Alert.AlertType.WARNING, "Peringatan", "Pilih layanan yang ingin dihapus!");
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Konfirmasi Hapus");
+        confirm.setHeaderText(null);
+        confirm.setContentText("Yakin ingin menghapus layanan '" + dipilih.getNamaLayanan() + "'?");
+
+        if (confirm.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+            LayananDAO dao = new LayananDAO();
+            if (dao.hapusLayanan(dipilih.getIdLayanan())) {
+                tampilkanPeringatan(Alert.AlertType.INFORMATION, "Sukses", "Layanan dihapus.");
+                muatDataLayanan();
+                clearLayananForm();
+            } else {
+                tampilkanPeringatan(Alert.AlertType.ERROR, "Gagal", "Gagal menghapus layanan.");
+            }
+        }
+    }
+
+    private void clearLayananForm() {
+        txtNamaLayanan.clear();
+        txtHarga.clear();
+        txtDurasi.clear();
+        tableLayanan.getSelectionModel().clearSelection();
     }
 
     // ===============================================================
@@ -580,7 +586,7 @@ public class AdminController {
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.setTitle("Login Salon");
-                stage.centerOnScreen();
+                stage.setMaximized(true);
                 stage.show();
             }
 
@@ -598,8 +604,15 @@ public class AdminController {
             viewLayanan.setVisible(false);
         if (viewLaporan != null)
             viewLaporan.setVisible(false);
+        if (viewPenjualan != null)
+            viewPenjualan.setVisible(false);
         if (view != null)
             view.setVisible(true);
+    }
+
+    @FXML
+    void handleShowPenjualan(ActionEvent event) {
+        switchView(viewPenjualan);
     }
 
 }
