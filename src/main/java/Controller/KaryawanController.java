@@ -268,8 +268,18 @@ public class KaryawanController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Login.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setMaximized(true);
+
+            // Simpan status maximized sebelum ganti scene
+            boolean wasMaximized = stage.isMaximized();
+
+            // Buat scene dengan ukuran yang sama
+            Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
+            stage.setScene(scene);
+
+            // Restore maximized state
+            if (wasMaximized) {
+                stage.setMaximized(true);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

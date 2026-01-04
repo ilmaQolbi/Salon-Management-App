@@ -128,13 +128,22 @@ public class LoginController implements Initializable {
     // Pindah ke halaman Register
     private void keHalamanRegister(ActionEvent event) {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Register.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+
+            // Simpan status maximized sebelum ganti scene
+            boolean wasMaximized = stage.isMaximized();
+
+            // Buat scene dengan ukuran yang sama
+            Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
+            stage.setScene(scene);
             stage.setTitle("Register Karyawan");
-            stage.setMaximized(true);
+
+            // Restore maximized state
+            if (wasMaximized) {
+                stage.setMaximized(true);
+            }
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -160,10 +169,18 @@ public class LoginController implements Initializable {
 
             Stage stage = (Stage) ((Node) aksi.getSource()).getScene().getWindow();
 
-            // Ganti scene ke dashboard
-            stage.setScene(new Scene(root));
+            // Simpan status maximized sebelum ganti scene
+            boolean wasMaximized = stage.isMaximized();
+
+            // Ganti scene ke dashboard dengan ukuran yang sama
+            Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
+            stage.setScene(scene);
             stage.setTitle(judul);
-            stage.setMaximized(true);
+
+            // Restore maximized state
+            if (wasMaximized) {
+                stage.setMaximized(true);
+            }
             stage.show();
 
         } catch (IOException e) {

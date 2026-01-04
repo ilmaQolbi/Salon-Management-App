@@ -583,10 +583,18 @@ public class AdminController {
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-                Scene scene = new Scene(root);
+                // Simpan status maximized sebelum ganti scene
+                boolean wasMaximized = stage.isMaximized();
+
+                // Buat scene dengan ukuran yang sama
+                Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
                 stage.setScene(scene);
                 stage.setTitle("Login Salon");
-                stage.setMaximized(true);
+
+                // Restore maximized state
+                if (wasMaximized) {
+                    stage.setMaximized(true);
+                }
                 stage.show();
             }
 
