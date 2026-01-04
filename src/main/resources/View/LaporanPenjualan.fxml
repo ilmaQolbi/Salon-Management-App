@@ -22,7 +22,7 @@
                 <!-- Header -->
                 <HBox alignment="CENTER_LEFT" spacing="20.0">
                     <children>
-                        <Label styleClass="report-title" text="📊 Laporan Penjualan">
+                        <Label styleClass="report-title" text="Laporan Penjualan">
                             <font>
                                 <Font name="System Bold" size="28.0" />
                             </font>
@@ -110,7 +110,7 @@
                         <!-- Bar Chart - Penjualan Harian -->
                         <VBox spacing="10.0" styleClass="chart-container" HBox.hgrow="ALWAYS">
                             <children>
-                                <Label styleClass="chart-title" text="📈 Penjualan 7 Hari Terakhir" />
+                                <Label styleClass="chart-title" text="Penjualan 7 Hari Terakhir" />
                                 <BarChart fx:id="barChartHarian" prefHeight="300.0">
                                     <xAxis>
                                         <CategoryAxis label="Tanggal" fx:id="xAxisBar" />
@@ -128,7 +128,7 @@
                         <!-- Pie Chart - Distribusi Layanan -->
                         <VBox spacing="10.0" styleClass="chart-container" HBox.hgrow="ALWAYS">
                             <children>
-                                <Label styleClass="chart-title" text="🥧 Penjualan per Layanan" />
+                                <Label styleClass="chart-title" text="Penjualan per Layanan" />
                                 <PieChart fx:id="pieChartLayanan" prefHeight="300.0" labelsVisible="false" legendVisible="true" />
                             </children>
                             <padding>

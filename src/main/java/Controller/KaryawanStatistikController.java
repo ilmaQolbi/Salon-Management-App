@@ -80,12 +80,30 @@ public class KaryawanStatistikController {
      * Load data untuk bar chart (pelanggan 7 hari terakhir)
      */
     private void loadBarChartData() {
+        // Clear existing data and reset axis
         barChartHarian.getData().clear();
+
+        // Force Y-Axis to show only integers (no decimals)
+        javafx.scene.chart.NumberAxis yAxis = (javafx.scene.chart.NumberAxis) barChartHarian.getYAxis();
+        yAxis.setAutoRanging(false);
+        yAxis.setLowerBound(0);
+        yAxis.setTickUnit(1);
+        yAxis.setMinorTickVisible(false);
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Pelanggan");
 
         List<Object[]> data = dao.getJumlahPelangganPerHari(idKaryawan);
+
+        // Find max value to set upper bound
+        int maxValue = 1;
+        for (Object[] row : data) {
+            Integer jumlah = (Integer) row[1];
+            if (jumlah > maxValue) {
+                maxValue = jumlah;
+            }
+        }
+        yAxis.setUpperBound(maxValue + 1); // Add 1 for padding
 
         for (Object[] row : data) {
             String tanggal = (String) row[0];

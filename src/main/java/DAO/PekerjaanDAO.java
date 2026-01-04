@@ -162,7 +162,7 @@ public class PekerjaanDAO {
      * @return true jika berhasil
      */
     public static boolean selesaikanPekerjaan(int idAntrian) {
-        String query = "UPDATE antrian_Pelanggan SET status = 'Selesai' WHERE id_antrian = ?";
+        String query = "UPDATE antrian_Pelanggan SET status = 'Selesai', waktu_selesai = NOW() WHERE id_antrian = ?";
         int result = DatabaseManager.eksekusiUpdate(query, idAntrian);
         return result > 0;
     }

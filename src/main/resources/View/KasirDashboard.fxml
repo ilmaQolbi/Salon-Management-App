@@ -32,8 +32,9 @@
                             </font>
                         </Label>
                         <Label fx:id="lblNamaKasir" text="Halo, [Nama Kasir]" textFill="#d7ccc8" />
-                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="ALWAYS">
                             <children>
+                                <Button mnemonicParsing="false" onAction="#handleLaporanPenjualan" styleClass="btn-header" text="Laporan Penjualan" />
                                 <Button mnemonicParsing="false" onAction="#handleLogout" styleClass="btn-logout" text="Logout" />
                             </children>
                         </HBox>
@@ -114,10 +115,6 @@
             </StackPane.margin>
         </Button>
         
-        <Button mnemonicParsing="false" onAction="#handleLaporanPenjualan" styleClass="fab-btn-report" text="📊 Laporan Penjualan" StackPane.alignment="BOTTOM_LEFT">
-            <StackPane.margin>
-                <Insets bottom="20.0" left="200.0" />
-            </StackPane.margin>
-        </Button>
+
     </children>
 </StackPane>

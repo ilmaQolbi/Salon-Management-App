@@ -26,7 +26,7 @@
                 <Button fx:id="btnKaryawan" mnemonicParsing="false" onAction="#lihatKaryawan" prefWidth="220.0" styleClass="sidebar-button" text="Kelola Pengguna" />
                 <Button fx:id="btnLayanan" mnemonicParsing="false" onAction="#lihatLayanan" prefWidth="220.0" styleClass="sidebar-button" text="Kelola Layanan" />
                 <Button fx:id="btnLaporan" mnemonicParsing="false" onAction="#handleShowLaporan" prefWidth="220.0" styleClass="sidebar-button" text="Laporan Kendala" />
-                <Button fx:id="btnPenjualan" mnemonicParsing="false" onAction="#handleShowPenjualan" prefWidth="220.0" styleClass="sidebar-button" text="📊 Laporan Penjualan" />
+                <Button fx:id="btnPenjualan" mnemonicParsing="false" onAction="#handleShowPenjualan" prefWidth="220.0" styleClass="sidebar-button" text="Laporan Penjualan" />
                 
                 <VBox alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS">
                     <children>

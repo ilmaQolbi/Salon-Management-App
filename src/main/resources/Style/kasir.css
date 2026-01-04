@@ -248,6 +248,21 @@
     -fx-background-color: #6d4c41;
 }
 
+.btn-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-border-color: #8d6e63;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 5 12;
+}
+
+.btn-header:hover {
+    -fx-background-color: #6d4c41;
+}
+
 .main-content {
     -fx-background-color: #efebe9;
 }
