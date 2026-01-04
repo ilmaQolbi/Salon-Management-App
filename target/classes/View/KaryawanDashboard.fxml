@@ -55,7 +55,7 @@
                             </padding>
                             <children>
                                 <Button fx:id="btnAntrian" mnemonicParsing="false" onAction="#handleShowAntrian" prefWidth="200.0" styleClass="sidebar-button" text="📋 Antrian Pekerjaan" />
-                                <Button fx:id="btnRiwayat" mnemonicParsing="false" onAction="#handleShowRiwayat" prefWidth="200.0" styleClass="sidebar-button" text="📜 Riwayat Transaksi" />
+                                <Button fx:id="btnRiwayat" mnemonicParsing="false" onAction="#handleShowRiwayat" prefWidth="200.0" styleClass="sidebar-button" text="📜 Riwayat Pekerjaan" />
                                 <Button fx:id="btnKomisi" mnemonicParsing="false" onAction="#handleShowKomisi" prefWidth="200.0" styleClass="sidebar-button" text="💰 Lihat Komisi" />
                                 <Button fx:id="btnStatistik" mnemonicParsing="false" onAction="#handleShowStatistik" prefWidth="200.0" styleClass="sidebar-button" text="📊 Statistik" />
                             </children>
@@ -170,7 +170,7 @@
                                 <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                             </padding>
                             <children>
-                                <Label styleClass="label-header" text="Riwayat Transaksi" />
+                                <Label styleClass="label-header" text="Riwayat Pekerjaan" />
                                 <VBox styleClass="card-pane" VBox.vgrow="ALWAYS">
                                     <children>
                                         <TableView fx:id="tableRiwayat" VBox.vgrow="ALWAYS">

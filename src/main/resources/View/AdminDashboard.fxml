@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" stylesheets="@../Style/styleAdmin.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminController">
+<BorderPane minHeight="600.0" minWidth="900.0" stylesheets="@../Style/styleAdmin.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminController">
 
     <left>
         <!-- Sidebar dengan Gradient Rose -->
-        <VBox prefHeight="600.0" prefWidth="220.0" spacing="10.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+        <VBox prefWidth="220.0" spacing="10.0" styleClass="sidebar" BorderPane.alignment="CENTER">
             <children>
                 <Label alignment="CENTER" prefHeight="60.0" prefWidth="220.0" styleClass="sidebar-title" text="SALON ADMIN" />
                 
@@ -28,14 +28,14 @@
                 <Button fx:id="btnLaporan" mnemonicParsing="false" onAction="#handleShowLaporan" prefWidth="220.0" styleClass="sidebar-button" text="Laporan Kendala" />
                 <Button fx:id="btnPenjualan" mnemonicParsing="false" onAction="#handleShowPenjualan" prefWidth="220.0" styleClass="sidebar-button" text="Laporan Penjualan" />
                 
-                <VBox alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS">
-                    <children>
-                        <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogout" prefHeight="40.0" prefWidth="180.0" styleClass="logout-button" text="Logout" />
-                    </children>
-                    <padding>
-                        <Insets bottom="20.0" />
-                    </padding>
-                </VBox>
+                <!-- Spacer to push logout to bottom -->
+                <VBox VBox.vgrow="ALWAYS" />
+                
+                <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogout" prefHeight="40.0" prefWidth="180.0" styleClass="logout-button" text="Logout">
+                    <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" />
+                    </VBox.margin>
+                </Button>
             </children>
         </VBox>
     </left>
