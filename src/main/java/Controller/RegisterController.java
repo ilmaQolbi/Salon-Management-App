@@ -2,6 +2,7 @@ package Controller;
 
 import DAO.UserDAO;
 import Model.Admin;
+import Model.Karyawan;
 import Model.User;
 import java.io.File;
 import java.io.IOException;
@@ -98,11 +99,13 @@ public class RegisterController implements Initializable {
 
             // -------------------------------
 
-            // Buat object User baru (Role otomatis 'Karyawan')
-            User newUser = new User(userId, nama, email, password, "Karyawan", "Pending");
+            // Buat object Karyawan baru (karena User adalah abstract class)
+            // Menggunakan subclass Karyawan sesuai konsep Abstraction
+            Karyawan newKaryawan = new Karyawan(userId, nama, email, password);
+            newKaryawan.setStatus("Pending"); // Set status pending untuk approval
 
             // Simpan ke database lewat DAO
-            UserDAO.registrasiUser(newUser);
+            UserDAO.registrasiUser(newKaryawan);
 
             // Tampilkan pesan sukses dengan info ID
             JOptionPane.showMessageDialog(null,

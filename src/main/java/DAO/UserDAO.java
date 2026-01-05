@@ -6,8 +6,40 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Model.User;
+import Model.Admin;
+import Model.Kasir;
+import Model.Karyawan;
 
 public class UserDAO {
+
+    // ========== FACTORY METHOD (Abstraction Pattern) ==========
+    /**
+     * Membuat instance User berdasarkan role.
+     * Karena User adalah abstract class, kita harus instantiate subclass yang
+     * sesuai.
+     * 
+     * @param idUser, nama, email, password, role, status
+     * @return instance dari Admin, Kasir, atau Karyawan
+     */
+    private static User createUserByRole(String idUser, String nama, String email,
+            String password, String role, String status) {
+        User user;
+        switch (role.toLowerCase()) {
+            case "admin":
+                user = new Admin(idUser, nama, email, password);
+                break;
+            case "kasir":
+                user = new Kasir(idUser, nama, email, password);
+                break;
+            case "karyawan":
+            default:
+                user = new Karyawan(idUser, nama, email, password);
+                break;
+        }
+        // Set status karena constructor subclass tidak menerima status
+        user.setStatus(status);
+        return user;
+    }
 
     private static PreparedStatement st;
     private static Connection con;
@@ -27,7 +59,8 @@ public class UserDAO {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                u = new User(
+                // Menggunakan factory method untuk membuat subclass yang sesuai
+                u = createUserByRole(
                         rs.getString("idUser"),
                         rs.getString("nama"),
                         rs.getString("email"),
@@ -109,7 +142,8 @@ public class UserDAO {
         ResultSet rs = DatabaseManager.eksekusiQuery(query);
         try {
             while (rs != null && rs.next()) {
-                list.add(new User(
+                // Menggunakan factory method untuk membuat subclass yang sesuai
+                list.add(createUserByRole(
                         rs.getString("idUser"),
                         rs.getString("nama"),
                         rs.getString("email"),

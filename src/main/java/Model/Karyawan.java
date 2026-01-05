@@ -81,4 +81,16 @@ public class Karyawan extends User {
     public void laporKendala(String deskripsi) {
         System.out.println("Kendala dilaporkan: " + deskripsi);
     }
+
+    // ========== OVERRIDE METHODS (POLYMORPHISM) ==========
+
+    @Override
+    public String getInfoUser() {
+        return "Karyawan: " + nama + " (komisi saat ini: " + formatRupiah(komisi) + ")";
+    }
+
+    @Override
+    public String getDeskripsiTugas() {
+        return "Melayani pelanggan salon dan menyelesaikan layanan kecantikan";
+    }
 }

@@ -97,4 +97,17 @@ public class Admin extends User {
     public List<Layanan> getDaftarLayanan() {
         return daftarLayanan;
     }
+
+    // ========== OVERRIDE METHODS (POLYMORPHISM) ==========
+
+    @Override
+    public String getInfoUser() {
+        return "Admin: " + nama + " (mengelola " + daftarKaryawan.size() + " karyawan, "
+                + daftarLayanan.size() + " layanan)";
+    }
+
+    @Override
+    public String getDeskripsiTugas() {
+        return "Mengelola karyawan, layanan, dan melihat laporan salon";
+    }
 }

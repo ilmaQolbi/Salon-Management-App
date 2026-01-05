@@ -30,4 +30,17 @@ public class Kasir extends User {
     public List<Transaksi> lihatRiwayatTransaksi() {
         return daftarTransaksi;
     }
+
+    // ========== OVERRIDE METHODS (POLYMORPHISM) ==========
+
+    @Override
+    public String getInfoUser() {
+        int jumlahTransaksi = (daftarTransaksi != null) ? daftarTransaksi.size() : 0;
+        return "Kasir: " + nama + " (total " + jumlahTransaksi + " transaksi)";
+    }
+
+    @Override
+    public String getDeskripsiTugas() {
+        return "Menangani transaksi pelanggan dan pembayaran di salon";
+    }
 }

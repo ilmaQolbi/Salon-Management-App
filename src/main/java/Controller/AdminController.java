@@ -4,6 +4,8 @@ import DAO.DatabaseManager;
 import DAO.UserDAO;
 import DAO.LayananDAO;
 import Model.Admin;
+import Model.Kasir;
+import Model.Karyawan;
 import Model.Layanan;
 import Model.User;
 import Model.LaporanModel;
@@ -230,8 +232,23 @@ public class AdminController {
         if (status == null)
             status = "Aktif";
 
-        // nambah user pake DAO
-        User newUser = new User(idUserBaru, nama, username, password, role, status);
+        // Buat user sesuai role (karena User adalah abstract class)
+        // Ini menerapkan konsep Abstraction & Factory Pattern
+        User newUser;
+        switch (role.toLowerCase()) {
+            case "admin":
+                newUser = new Admin(idUserBaru, nama, username, password);
+                break;
+            case "kasir":
+                newUser = new Kasir(idUserBaru, nama, username, password);
+                break;
+            case "karyawan":
+            default:
+                newUser = new Karyawan(idUserBaru, nama, username, password);
+                break;
+        }
+        newUser.setStatus(status);
+
         boolean sukses = UserDAO.tambahUser(newUser);
 
         if (sukses) {
