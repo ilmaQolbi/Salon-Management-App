@@ -5,14 +5,7 @@ package Model;
  * @author AERO
  */
 /**
- * Abstract class User - Base class untuk semua tipe pengguna sistem salon.
  * 
- * KONSEP ABSTRACTION:
- * - Class ini tidak dapat di-instantiate secara langsung (harus melalui
- * subclass)
- * - Menyembunyikan detail implementasi dan hanya menampilkan fungsionalitas
- * penting
- * - Abstract methods memaksa subclass untuk memberikan implementasi spesifik
  * 
  * @author AERO
  */

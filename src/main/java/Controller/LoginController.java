@@ -19,7 +19,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane; // Import JOptionPane
+import javafx.scene.control.Alert;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -75,7 +75,7 @@ public class LoginController implements Initializable {
 
         // 1. Validasi Input Kosong
         if (email.isEmpty() || password.isEmpty() || role == null) {
-            JOptionPane.showMessageDialog(null, "Semua field harus diisi!");
+            tampilkanAlert(Alert.AlertType.WARNING, "Validasi", "Semua field harus diisi!");
             return;
         }
 
@@ -89,15 +89,15 @@ public class LoginController implements Initializable {
                 // Cek Status Approval
                 String status = user.getStatus();
                 if (status != null && status.equalsIgnoreCase("Menunggu Persetujuan")) {
-                    JOptionPane.showMessageDialog(null,
+                    tampilkanAlert(Alert.AlertType.WARNING, "Menunggu Persetujuan",
                             "Akun Anda sedang menunggu persetujuan Admin.\nSilakan hubungi Admin.");
                     return;
                 } else if (status != null && status.equalsIgnoreCase("Ditolak")) {
-                    JOptionPane.showMessageDialog(null, "Maaf, pendaftaran akun Anda ditolak oleh Admin.");
+                    tampilkanAlert(Alert.AlertType.ERROR, "Ditolak", "Maaf, pendaftaran akun Anda ditolak oleh Admin.");
                     return;
                 } else if (status == null || status.equalsIgnoreCase("Aktif")) {
                     // LOGIN SUKSES
-                    JOptionPane.showMessageDialog(null, "Login Berhasil! Selamat datang " + user.getNama());
+                    tampilkanAlert(Alert.AlertType.INFORMATION, "Login Berhasil", "Selamat datang " + user.getNama());
 
                     // 3. Arahkan User sesuai Role
                     // Masuk ke Admin Dashboard
@@ -110,17 +110,17 @@ public class LoginController implements Initializable {
                         keDashboard(event, "/View/KaryawanDashboard.fxml", "Karyawan Dashboard", user);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Status akun tidak valid: " + status);
+                    tampilkanAlert(Alert.AlertType.ERROR, "Error", "Status akun tidak valid: " + status);
                 }
 
             } else {
                 // LOGIN GAGAL
-                JOptionPane.showMessageDialog(null, "Login Gagal! Email, Password, atau Role salah.");
+                tampilkanAlert(Alert.AlertType.ERROR, "Login Gagal", "Email, Password, atau Role salah.");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Terjadi kesalahan : " + e.getMessage());
+            tampilkanAlert(Alert.AlertType.ERROR, "Error", "Terjadi kesalahan : " + e.getMessage());
         }
     }
 
@@ -147,7 +147,7 @@ public class LoginController implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Gagal membuka halaman Register.\n" + e.toString());
+            tampilkanAlert(Alert.AlertType.ERROR, "Error", "Gagal membuka halaman Register.\n" + e.toString());
         }
     }
 
@@ -185,7 +185,17 @@ public class LoginController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Gagal memuat halaman: " + lokasiFxml + "\nError: " + e.getMessage());
+            tampilkanAlert(Alert.AlertType.ERROR, "Error",
+                    "Gagal memuat halaman: " + lokasiFxml + "\nError: " + e.getMessage());
         }
+    }
+
+    // Helper method untuk menampilkan Alert JavaFX
+    private void tampilkanAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

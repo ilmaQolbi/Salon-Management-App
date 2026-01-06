@@ -19,8 +19,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import javax.swing.JOptionPane;
 import java.io.IOException;
+import java.util.Optional;
 
 public class KaryawanController {
 
@@ -112,8 +112,8 @@ public class KaryawanController {
         // Setup Table Komisi
         setupTableKomisi();
 
-        // Load Data
-        muatDataPekerjaan();
+        // NOTE: Data akan di-load setelah setUserData() dipanggil
+        // karena currentUserId masih null di sini
     }
 
     private void setupTableAntrian() {
@@ -240,19 +240,23 @@ public class KaryawanController {
 
     // --- ACTIONS ---
     private void aksiSelesaikanPekerjaan(PekerjaanModel data) {
-        int confirm = JOptionPane.showConfirmDialog(null,
-                "Selesaikan layanan: " + data.getNamaLayanan() + " untuk " + data.getNamaPelanggan() + "?",
-                "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        // Gunakan JavaFX Alert untuk konfirmasi
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Konfirmasi");
+        confirmAlert.setHeaderText(null);
+        confirmAlert.setContentText(
+                "Selesaikan layanan: " + data.getNamaLayanan() + " untuk " + data.getNamaPelanggan() + "?");
 
-        if (confirm == JOptionPane.YES_OPTION) {
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             // Gunakan DAO untuk update status
             boolean success = PekerjaanDAO.selesaikanPekerjaan(data.getIdDetail());
 
             if (success) {
-                JOptionPane.showMessageDialog(null, "Pekerjaan Selesai!");
+                tampilkanAlert(Alert.AlertType.INFORMATION, "Berhasil", "Pekerjaan Selesai!");
                 muatDataPekerjaan();
             } else {
-                JOptionPane.showMessageDialog(null, "Gagal mengupdate data.");
+                tampilkanAlert(Alert.AlertType.ERROR, "Gagal", "Gagal mengupdate data.");
             }
         }
     }
@@ -293,6 +297,17 @@ public class KaryawanController {
     public void setUserData(String id, String nama) {
         this.currentUserId = id;
         this.lblNamaUser.setText("Halo, " + nama);
+
+        // Load data setelah userId tersedia
+        muatDataPekerjaan();
     }
 
+    // Helper method untuk menampilkan Alert JavaFX
+    private void tampilkanAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }

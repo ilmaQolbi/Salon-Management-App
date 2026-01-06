@@ -15,11 +15,11 @@ public class KaryawanStatistikDAO {
      */
     public int getJumlahPelangganHariIni(String idKaryawan) {
         String query = "SELECT COUNT(*) as jumlah FROM antrian_Pelanggan " +
-                "WHERE id_karyawan = '" + idKaryawan + "' " +
+                "WHERE id_karyawan = ? " +
                 "AND status = 'Selesai' " +
                 "AND DATE(waktu_selesai) = CURDATE()";
         try {
-            ResultSet rs = DatabaseManager.eksekusiQuery(query);
+            ResultSet rs = DatabaseManager.eksekusiQueryDenganParam(query, idKaryawan);
             if (rs != null && rs.next()) {
                 return rs.getInt("jumlah");
             }
@@ -34,11 +34,11 @@ public class KaryawanStatistikDAO {
      */
     public int getJumlahPelangganMingguIni(String idKaryawan) {
         String query = "SELECT COUNT(*) as jumlah FROM antrian_Pelanggan " +
-                "WHERE id_karyawan = '" + idKaryawan + "' " +
+                "WHERE id_karyawan = ? " +
                 "AND status = 'Selesai' " +
                 "AND waktu_selesai >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)";
         try {
-            ResultSet rs = DatabaseManager.eksekusiQuery(query);
+            ResultSet rs = DatabaseManager.eksekusiQueryDenganParam(query, idKaryawan);
             if (rs != null && rs.next()) {
                 return rs.getInt("jumlah");
             }
@@ -53,12 +53,12 @@ public class KaryawanStatistikDAO {
      */
     public int getJumlahPelangganBulanIni(String idKaryawan) {
         String query = "SELECT COUNT(*) as jumlah FROM antrian_Pelanggan " +
-                "WHERE id_karyawan = '" + idKaryawan + "' " +
+                "WHERE id_karyawan = ? " +
                 "AND status = 'Selesai' " +
                 "AND MONTH(waktu_selesai) = MONTH(CURDATE()) " +
                 "AND YEAR(waktu_selesai) = YEAR(CURDATE())";
         try {
-            ResultSet rs = DatabaseManager.eksekusiQuery(query);
+            ResultSet rs = DatabaseManager.eksekusiQueryDenganParam(query, idKaryawan);
             if (rs != null && rs.next()) {
                 return rs.getInt("jumlah");
             }
@@ -73,10 +73,10 @@ public class KaryawanStatistikDAO {
      */
     public int getTotalPelanggan(String idKaryawan) {
         String query = "SELECT COUNT(*) as jumlah FROM antrian_Pelanggan " +
-                "WHERE id_karyawan = '" + idKaryawan + "' " +
+                "WHERE id_karyawan = ? " +
                 "AND status = 'Selesai'";
         try {
-            ResultSet rs = DatabaseManager.eksekusiQuery(query);
+            ResultSet rs = DatabaseManager.eksekusiQueryDenganParam(query, idKaryawan);
             if (rs != null && rs.next()) {
                 return rs.getInt("jumlah");
             }
@@ -104,11 +104,11 @@ public class KaryawanStatistikDAO {
                 "    UNION SELECT DATE_SUB(CURDATE(), INTERVAL 6 DAY) " +
                 ") d " +
                 "LEFT JOIN antrian_Pelanggan ap ON DATE(ap.waktu_selesai) = d.date " +
-                "AND ap.id_karyawan = '" + idKaryawan + "' AND ap.status = 'Selesai' " +
+                "AND ap.id_karyawan = ? AND ap.status = 'Selesai' " +
                 "GROUP BY d.date " +
                 "ORDER BY d.date ASC";
         try {
-            ResultSet rs = DatabaseManager.eksekusiQuery(query);
+            ResultSet rs = DatabaseManager.eksekusiQueryDenganParam(query, idKaryawan);
             while (rs != null && rs.next()) {
                 Object[] row = new Object[2];
                 row[0] = rs.getString("tgl");
@@ -131,11 +131,11 @@ public class KaryawanStatistikDAO {
         String query = "SELECT l.nama_layanan, COUNT(ap.id_antrian) as jumlah " +
                 "FROM antrian_Pelanggan ap " +
                 "JOIN layanan l ON ap.id_layanan = l.id_layanan " +
-                "WHERE ap.id_karyawan = '" + idKaryawan + "' AND ap.status = 'Selesai' " +
+                "WHERE ap.id_karyawan = ? AND ap.status = 'Selesai' " +
                 "GROUP BY l.id_layanan, l.nama_layanan " +
                 "ORDER BY jumlah DESC";
         try {
-            ResultSet rs = DatabaseManager.eksekusiQuery(query);
+            ResultSet rs = DatabaseManager.eksekusiQueryDenganParam(query, idKaryawan);
             while (rs != null && rs.next()) {
                 Object[] row = new Object[2];
                 row[0] = rs.getString("nama_layanan");
